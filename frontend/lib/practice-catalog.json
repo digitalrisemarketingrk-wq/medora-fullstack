@@ -1,0 +1,1177 @@
+[
+  {
+    "key": "patients",
+    "name": "Patient registry",
+    "group": "Clinical",
+    "description": "Patient identity, contact details and longitudinal care history.",
+    "fields": [
+      {
+        "key": "name",
+        "label": "Full name",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "dob",
+        "label": "Date of birth",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "key": "phone",
+        "label": "Phone",
+        "kind": "text",
+        "required": false
+      },
+      {
+        "key": "email",
+        "label": "Email",
+        "kind": "email",
+        "required": false
+      },
+      {
+        "key": "address",
+        "label": "Address",
+        "kind": "textarea",
+        "required": false
+      },
+      {
+        "key": "history",
+        "label": "Medical history",
+        "kind": "textarea",
+        "required": false
+      },
+      {
+        "key": "allergies",
+        "label": "Recorded allergies and source",
+        "kind": "textarea",
+        "required": false
+      },
+      {
+        "key": "emergency_contact",
+        "label": "Emergency contact",
+        "kind": "text",
+        "required": false
+      }
+    ],
+    "statuses": [
+      "Active",
+      "Archived"
+    ],
+    "transitions": {
+      "Active": [
+        "Archived"
+      ],
+      "Archived": [
+        "Active"
+      ]
+    },
+    "integration": null
+  },
+  {
+    "key": "appointments",
+    "name": "Appointments",
+    "group": "Clinical",
+    "description": "Reserve clinician time, prepare visits and track attendance.",
+    "fields": [
+      {
+        "key": "patient_id",
+        "label": "Patient",
+        "kind": "patient",
+        "required": true
+      },
+      {
+        "key": "clinician",
+        "label": "Clinician",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "starts_at",
+        "label": "Start",
+        "kind": "datetime-local",
+        "required": true
+      },
+      {
+        "key": "ends_at",
+        "label": "End",
+        "kind": "datetime-local",
+        "required": true
+      },
+      {
+        "key": "timezone",
+        "label": "Clinic timezone",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "reason",
+        "label": "Visit reason",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "mode",
+        "label": "Visit type",
+        "kind": "select",
+        "required": true,
+        "options": [
+          "In person",
+          "Video",
+          "Telephone"
+        ]
+      },
+      {
+        "key": "notes",
+        "label": "Notes",
+        "kind": "textarea",
+        "required": false
+      }
+    ],
+    "statuses": [
+      "Booked",
+      "Checked in",
+      "In consultation",
+      "Completed",
+      "Cancelled",
+      "No-show"
+    ],
+    "transitions": {
+      "Booked": [
+        "Checked in",
+        "Cancelled",
+        "No-show"
+      ],
+      "Checked in": [
+        "In consultation",
+        "Cancelled"
+      ],
+      "In consultation": [
+        "Completed"
+      ]
+    },
+    "integration": null
+  },
+  {
+    "key": "emr",
+    "name": "Clinical records",
+    "group": "Clinical",
+    "description": "Encounter notes, observations, diagnoses and attributed clinical history.",
+    "fields": [
+      {
+        "key": "patient_id",
+        "label": "Patient",
+        "kind": "patient",
+        "required": true
+      },
+      {
+        "key": "title",
+        "label": "Encounter title",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "observations",
+        "label": "Vitals and observations",
+        "kind": "textarea",
+        "required": false
+      },
+      {
+        "key": "history",
+        "label": "History",
+        "kind": "textarea",
+        "required": false
+      },
+      {
+        "key": "assessment",
+        "label": "Assessment / diagnosis",
+        "kind": "textarea",
+        "required": false
+      },
+      {
+        "key": "plan",
+        "label": "Plan",
+        "kind": "textarea",
+        "required": false
+      },
+      {
+        "key": "attachments",
+        "label": "Document references",
+        "kind": "textarea",
+        "required": false
+      }
+    ],
+    "statuses": [
+      "Draft",
+      "Reviewed",
+      "Signed"
+    ],
+    "transitions": {
+      "Draft": [
+        "Reviewed"
+      ],
+      "Reviewed": [
+        "Draft",
+        "Signed"
+      ]
+    },
+    "integration": null
+  },
+  {
+    "key": "treatments",
+    "name": "Treatment plans",
+    "group": "Clinical",
+    "description": "Goals, procedures, assessments and follow-up progress.",
+    "fields": [
+      {
+        "key": "patient_id",
+        "label": "Patient",
+        "kind": "patient",
+        "required": true
+      },
+      {
+        "key": "title",
+        "label": "Treatment / procedure",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "goals",
+        "label": "Goals",
+        "kind": "textarea",
+        "required": true
+      },
+      {
+        "key": "procedure",
+        "label": "Procedure record",
+        "kind": "textarea",
+        "required": false
+      },
+      {
+        "key": "assessment",
+        "label": "Specialty assessment",
+        "kind": "textarea",
+        "required": false
+      },
+      {
+        "key": "progress",
+        "label": "Progress notes",
+        "kind": "textarea",
+        "required": false
+      },
+      {
+        "key": "review_date",
+        "label": "Next review",
+        "kind": "date",
+        "required": false
+      }
+    ],
+    "statuses": [
+      "Planned",
+      "Active",
+      "Completed",
+      "Cancelled"
+    ],
+    "transitions": {
+      "Planned": [
+        "Active",
+        "Cancelled"
+      ],
+      "Active": [
+        "Completed",
+        "Cancelled"
+      ]
+    },
+    "integration": null
+  },
+  {
+    "key": "prescriptions",
+    "name": "Prescriptions",
+    "group": "Clinical",
+    "description": "Clinician-reviewed medication instructions and prescription records.",
+    "fields": [
+      {
+        "key": "patient_id",
+        "label": "Patient",
+        "kind": "patient",
+        "required": true
+      },
+      {
+        "key": "title",
+        "label": "Prescription title",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "medications",
+        "label": "Medication, strength, route and instructions",
+        "kind": "textarea",
+        "required": true
+      },
+      {
+        "key": "allergy_review",
+        "label": "Allergy reconciliation",
+        "kind": "textarea",
+        "required": true
+      },
+      {
+        "key": "instructions",
+        "label": "Patient instructions",
+        "kind": "textarea",
+        "required": false
+      },
+      {
+        "key": "review_date",
+        "label": "Review date",
+        "kind": "date",
+        "required": false
+      }
+    ],
+    "statuses": [
+      "Draft",
+      "Reviewed",
+      "Issued",
+      "Cancelled"
+    ],
+    "transitions": {
+      "Draft": [
+        "Reviewed",
+        "Cancelled"
+      ],
+      "Reviewed": [
+        "Draft",
+        "Issued",
+        "Cancelled"
+      ]
+    },
+    "integration": "Digital delivery requires a configured messaging provider."
+  },
+  {
+    "key": "billing",
+    "name": "Billing & payments",
+    "group": "Finance",
+    "description": "Invoices, recorded payments, outstanding balances and receipts.",
+    "fields": [
+      {
+        "key": "patient_id",
+        "label": "Patient",
+        "kind": "patient",
+        "required": true
+      },
+      {
+        "key": "title",
+        "label": "Invoice description",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "amount",
+        "label": "Invoice total",
+        "kind": "money",
+        "required": true
+      },
+      {
+        "key": "currency",
+        "label": "Currency",
+        "kind": "select",
+        "required": true,
+        "options": [
+          "INR",
+          "GBP",
+          "USD",
+          "EUR"
+        ]
+      },
+      {
+        "key": "due_date",
+        "label": "Due date",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "key": "notes",
+        "label": "Notes",
+        "kind": "textarea",
+        "required": false
+      }
+    ],
+    "statuses": [
+      "Draft",
+      "Issued",
+      "Part-paid",
+      "Paid",
+      "Void"
+    ],
+    "transitions": {
+      "Draft": [
+        "Issued",
+        "Void"
+      ],
+      "Issued": [
+        "Void"
+      ]
+    },
+    "integration": null
+  },
+  {
+    "key": "claims",
+    "name": "Insurance & RCM",
+    "group": "Finance",
+    "description": "Track claim preparation, submissions, decisions and reconciliation.",
+    "fields": [
+      {
+        "key": "patient_id",
+        "label": "Patient",
+        "kind": "patient",
+        "required": true
+      },
+      {
+        "key": "title",
+        "label": "Claim reference",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "payer",
+        "label": "Payer",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "policy",
+        "label": "Policy reference",
+        "kind": "text",
+        "required": false
+      },
+      {
+        "key": "amount",
+        "label": "Claim amount",
+        "kind": "money",
+        "required": true
+      },
+      {
+        "key": "currency",
+        "label": "Currency",
+        "kind": "select",
+        "required": true,
+        "options": [
+          "INR",
+          "GBP",
+          "USD",
+          "EUR"
+        ]
+      },
+      {
+        "key": "coding",
+        "label": "Codes and coding system",
+        "kind": "textarea",
+        "required": false
+      },
+      {
+        "key": "decision",
+        "label": "Decision / remittance reference",
+        "kind": "textarea",
+        "required": false
+      }
+    ],
+    "statuses": [
+      "Draft",
+      "Submitted",
+      "Approved",
+      "Rejected",
+      "Resubmitted",
+      "Reconciled"
+    ],
+    "transitions": {
+      "Draft": [
+        "Submitted"
+      ],
+      "Submitted": [
+        "Approved",
+        "Rejected"
+      ],
+      "Rejected": [
+        "Resubmitted"
+      ],
+      "Resubmitted": [
+        "Approved",
+        "Rejected"
+      ],
+      "Approved": [
+        "Reconciled"
+      ]
+    },
+    "integration": "Payer submission is recorded manually; no insurer connection is configured."
+  },
+  {
+    "key": "pharmacy",
+    "name": "Pharmacy",
+    "group": "Operations",
+    "description": "Batch-level medicine stock, expiry visibility and dispensing ledger.",
+    "fields": [
+      {
+        "key": "name",
+        "label": "Medicine / strength",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "batch",
+        "label": "Batch number",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "quantity",
+        "label": "Opening quantity",
+        "kind": "number",
+        "required": true
+      },
+      {
+        "key": "unit",
+        "label": "Stock unit",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "expiry",
+        "label": "Expiry date",
+        "kind": "date",
+        "required": true
+      },
+      {
+        "key": "reorder",
+        "label": "Low-stock threshold",
+        "kind": "number",
+        "required": true
+      },
+      {
+        "key": "supplier",
+        "label": "Supplier",
+        "kind": "text",
+        "required": false
+      }
+    ],
+    "statuses": [
+      "Available",
+      "Quarantined",
+      "Archived"
+    ],
+    "transitions": {
+      "Available": [
+        "Quarantined",
+        "Archived"
+      ],
+      "Quarantined": [
+        "Available",
+        "Archived"
+      ]
+    },
+    "integration": null
+  },
+  {
+    "key": "labs",
+    "name": "Laboratory",
+    "group": "Clinical",
+    "description": "Test orders, results, report references and clinician review.",
+    "fields": [
+      {
+        "key": "patient_id",
+        "label": "Patient",
+        "kind": "patient",
+        "required": true
+      },
+      {
+        "key": "title",
+        "label": "Test / panel",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "requested_by",
+        "label": "Requesting clinician",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "specimen",
+        "label": "Specimen / collection details",
+        "kind": "text",
+        "required": false
+      },
+      {
+        "key": "results",
+        "label": "Result, units and reference ranges",
+        "kind": "textarea",
+        "required": false
+      },
+      {
+        "key": "report_reference",
+        "label": "Report reference",
+        "kind": "text",
+        "required": false
+      },
+      {
+        "key": "review",
+        "label": "Review notes",
+        "kind": "textarea",
+        "required": false
+      }
+    ],
+    "statuses": [
+      "Ordered",
+      "Collected",
+      "Resulted",
+      "Reviewed",
+      "Cancelled"
+    ],
+    "transitions": {
+      "Ordered": [
+        "Collected",
+        "Cancelled"
+      ],
+      "Collected": [
+        "Resulted"
+      ],
+      "Resulted": [
+        "Reviewed"
+      ]
+    },
+    "integration": "Analyzer and external laboratory connections are not configured."
+  },
+  {
+    "key": "ipd",
+    "name": "Admissions & beds",
+    "group": "Operations",
+    "description": "Admission, bed allocation, nursing documentation and discharge.",
+    "fields": [
+      {
+        "key": "patient_id",
+        "label": "Patient",
+        "kind": "patient",
+        "required": true
+      },
+      {
+        "key": "title",
+        "label": "Admission reason",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "ward",
+        "label": "Ward",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "bed",
+        "label": "Bed identifier",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "admitted_at",
+        "label": "Admission time",
+        "kind": "datetime-local",
+        "required": true
+      },
+      {
+        "key": "nursing_notes",
+        "label": "Nursing / ICU observations",
+        "kind": "textarea",
+        "required": false
+      },
+      {
+        "key": "procedure",
+        "label": "OT / procedure notes",
+        "kind": "textarea",
+        "required": false
+      },
+      {
+        "key": "discharge",
+        "label": "Discharge summary",
+        "kind": "textarea",
+        "required": false
+      }
+    ],
+    "statuses": [
+      "Admitted",
+      "Discharged"
+    ],
+    "transitions": {
+      "Admitted": [
+        "Discharged"
+      ]
+    },
+    "integration": null
+  },
+  {
+    "key": "inventory",
+    "name": "Inventory",
+    "group": "Operations",
+    "description": "Consumables, equipment and stock-level records.",
+    "fields": [
+      {
+        "key": "name",
+        "label": "Item name",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "sku",
+        "label": "SKU / asset tag",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "category",
+        "label": "Category",
+        "kind": "select",
+        "required": true,
+        "options": [
+          "Consumable",
+          "Equipment",
+          "Medication"
+        ]
+      },
+      {
+        "key": "quantity",
+        "label": "Quantity",
+        "kind": "number",
+        "required": true
+      },
+      {
+        "key": "reorder",
+        "label": "Alert threshold",
+        "kind": "number",
+        "required": true
+      },
+      {
+        "key": "unit",
+        "label": "Unit",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "notes",
+        "label": "Notes",
+        "kind": "textarea",
+        "required": false
+      }
+    ],
+    "statuses": [
+      "Active",
+      "Archived"
+    ],
+    "transitions": {
+      "Active": [
+        "Archived"
+      ],
+      "Archived": [
+        "Active"
+      ]
+    },
+    "integration": null
+  },
+  {
+    "key": "crm",
+    "name": "Patient engagement",
+    "group": "Engagement",
+    "description": "Consent-aware enquiries, follow-up tasks and relationship history.",
+    "fields": [
+      {
+        "key": "name",
+        "label": "Contact name",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "contact",
+        "label": "Contact details",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "source",
+        "label": "Enquiry source",
+        "kind": "text",
+        "required": false
+      },
+      {
+        "key": "follow_up",
+        "label": "Follow-up date",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "key": "marketing_consent",
+        "label": "Marketing consent",
+        "kind": "select",
+        "required": true,
+        "options": [
+          "Not granted",
+          "Granted",
+          "Withdrawn"
+        ]
+      },
+      {
+        "key": "notes",
+        "label": "Notes",
+        "kind": "textarea",
+        "required": false
+      }
+    ],
+    "statuses": [
+      "New",
+      "Contacted",
+      "Converted",
+      "Closed"
+    ],
+    "transitions": {
+      "New": [
+        "Contacted",
+        "Closed"
+      ],
+      "Contacted": [
+        "Converted",
+        "Closed"
+      ]
+    },
+    "integration": null
+  },
+  {
+    "key": "communications",
+    "name": "Communications",
+    "group": "Engagement",
+    "description": "Prepare patient reminders and keep attributed communication records.",
+    "fields": [
+      {
+        "key": "patient_id",
+        "label": "Patient",
+        "kind": "patient",
+        "required": true
+      },
+      {
+        "key": "title",
+        "label": "Subject",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "channel",
+        "label": "Channel",
+        "kind": "select",
+        "required": true,
+        "options": [
+          "Email",
+          "SMS",
+          "WhatsApp",
+          "Phone"
+        ]
+      },
+      {
+        "key": "message",
+        "label": "Message",
+        "kind": "textarea",
+        "required": true
+      },
+      {
+        "key": "scheduled_at",
+        "label": "Planned time",
+        "kind": "datetime-local",
+        "required": false
+      }
+    ],
+    "statuses": [
+      "Draft",
+      "Ready",
+      "Cancelled"
+    ],
+    "transitions": {
+      "Draft": [
+        "Ready",
+        "Cancelled"
+      ],
+      "Ready": [
+        "Draft",
+        "Cancelled"
+      ]
+    },
+    "integration": "Delivery is unavailable until a messaging provider and consent checks are configured."
+  },
+  {
+    "key": "hr",
+    "name": "People & attendance",
+    "group": "Operations",
+    "description": "Staff working-time records and leave approvals.",
+    "fields": [
+      {
+        "key": "name",
+        "label": "Staff member",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "type",
+        "label": "Record type",
+        "kind": "select",
+        "required": true,
+        "options": [
+          "Attendance",
+          "Leave"
+        ]
+      },
+      {
+        "key": "starts_at",
+        "label": "Start",
+        "kind": "datetime-local",
+        "required": true
+      },
+      {
+        "key": "ends_at",
+        "label": "End",
+        "kind": "datetime-local",
+        "required": true
+      },
+      {
+        "key": "notes",
+        "label": "Notes",
+        "kind": "textarea",
+        "required": false
+      }
+    ],
+    "statuses": [
+      "Pending",
+      "Approved",
+      "Declined"
+    ],
+    "transitions": {
+      "Pending": [
+        "Approved",
+        "Declined"
+      ]
+    },
+    "integration": null
+  },
+  {
+    "key": "telemedicine",
+    "name": "Telemedicine",
+    "group": "Clinical",
+    "description": "Schedule remote visits and record reviewed consultation details.",
+    "fields": [
+      {
+        "key": "patient_id",
+        "label": "Patient",
+        "kind": "patient",
+        "required": true
+      },
+      {
+        "key": "title",
+        "label": "Consultation reason",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "starts_at",
+        "label": "Visit time",
+        "kind": "datetime-local",
+        "required": true
+      },
+      {
+        "key": "clinician",
+        "label": "Clinician",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "meeting_url",
+        "label": "Approved meeting URL",
+        "kind": "url",
+        "required": false
+      },
+      {
+        "key": "notes",
+        "label": "Consultation notes",
+        "kind": "textarea",
+        "required": false
+      }
+    ],
+    "statuses": [
+      "Scheduled",
+      "Completed",
+      "Cancelled"
+    ],
+    "transitions": {
+      "Scheduled": [
+        "Completed",
+        "Cancelled"
+      ]
+    },
+    "integration": "Video calls require an approved external meeting service; recording is not enabled."
+  },
+  {
+    "key": "templates",
+    "name": "Forms & templates",
+    "group": "Settings",
+    "description": "Versioned specialty documentation and form templates.",
+    "fields": [
+      {
+        "key": "name",
+        "label": "Template name",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "specialty",
+        "label": "Specialty",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "type",
+        "label": "Template type",
+        "kind": "select",
+        "required": true,
+        "options": [
+          "Consultation",
+          "Prescription",
+          "Assessment",
+          "Consent",
+          "Discharge"
+        ]
+      },
+      {
+        "key": "content",
+        "label": "Template content",
+        "kind": "textarea",
+        "required": true
+      }
+    ],
+    "statuses": [
+      "Draft",
+      "Published",
+      "Archived"
+    ],
+    "transitions": {
+      "Draft": [
+        "Published",
+        "Archived"
+      ],
+      "Published": [
+        "Archived"
+      ]
+    },
+    "integration": null
+  },
+  {
+    "key": "consent",
+    "name": "Consent & feedback",
+    "group": "Engagement",
+    "description": "Record consent evidence, withdrawal and patient feedback.",
+    "fields": [
+      {
+        "key": "patient_id",
+        "label": "Patient",
+        "kind": "patient",
+        "required": true
+      },
+      {
+        "key": "title",
+        "label": "Purpose",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "type",
+        "label": "Record type",
+        "kind": "select",
+        "required": true,
+        "options": [
+          "Treatment consent",
+          "Data sharing",
+          "Recording consent",
+          "Feedback"
+        ]
+      },
+      {
+        "key": "evidence",
+        "label": "Consent evidence / feedback",
+        "kind": "textarea",
+        "required": true
+      },
+      {
+        "key": "recorded_by",
+        "label": "Recorded by",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "date",
+        "label": "Recorded date",
+        "kind": "date",
+        "required": true
+      }
+    ],
+    "statuses": [
+      "Recorded",
+      "Withdrawn"
+    ],
+    "transitions": {
+      "Recorded": [
+        "Withdrawn"
+      ]
+    },
+    "integration": null
+  },
+  {
+    "key": "locations",
+    "name": "Branches",
+    "group": "Settings",
+    "description": "Branch details, clinic timezones and operational contacts.",
+    "fields": [
+      {
+        "key": "name",
+        "label": "Branch name",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "address",
+        "label": "Address",
+        "kind": "textarea",
+        "required": true
+      },
+      {
+        "key": "timezone",
+        "label": "Timezone",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "phone",
+        "label": "Contact number",
+        "kind": "text",
+        "required": false
+      },
+      {
+        "key": "hours",
+        "label": "Opening hours",
+        "kind": "textarea",
+        "required": false
+      }
+    ],
+    "statuses": [
+      "Active",
+      "Closed"
+    ],
+    "transitions": {
+      "Active": [
+        "Closed"
+      ],
+      "Closed": [
+        "Active"
+      ]
+    },
+    "integration": null
+  }
+]

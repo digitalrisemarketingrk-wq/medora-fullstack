@@ -1,0 +1,2077 @@
+/* Medora Domain Workspaces Styling */
+
+.pr-domain-workspace {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+/* Metric Strip */
+.pr-domain-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.pr-domain-metric-card {
+  background: #ffffff;
+  border: 1px solid #e1e9ed;
+  border-radius: 12px;
+  padding: 18px 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pr-domain-metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(8, 127, 120, 0.06);
+}
+
+.pr-dm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 600;
+  color: #627685;
+}
+
+.pr-dm-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+}
+
+.pr-dm-icon.blue { background: #eaf2ff; color: #3b71c9; }
+.pr-dm-icon.teal { background: #e6f6f2; color: #087f78; }
+.pr-dm-icon.amber { background: #fff6e5; color: #b8861d; }
+.pr-dm-icon.violet { background: #f2ebff; color: #7f52cf; }
+
+.pr-domain-metric-card strong {
+  display: block;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  color: #1a384b;
+  margin: 10px 0 4px;
+}
+
+.pr-domain-metric-card small {
+  font-size: 11px;
+  color: #8295a3;
+}
+
+.pr-domain-metric-card.action {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pr-dm-action-btn {
+  margin: 8px 0 4px;
+  width: fit-content;
+}
+
+/* Subbar Controls */
+.pr-domain-subbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.pr-filter-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #eef4f6;
+  padding: 4px;
+  border-radius: 9px;
+  overflow-x: auto;
+}
+
+.pr-tab-btn {
+  background: transparent;
+  border: 0;
+  padding: 7px 14px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #5d7484;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.pr-tab-btn:hover {
+  color: #1a384b;
+}
+
+.pr-tab-btn.active {
+  background: #ffffff;
+  color: #087f78;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.pr-view-toggle {
+  display: flex;
+  background: #eef4f6;
+  padding: 3px;
+  border-radius: 8px;
+}
+
+.pr-vt-btn {
+  border: 0;
+  background: transparent;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: #6c8190;
+  cursor: pointer;
+}
+
+.pr-vt-btn.active {
+  background: #ffffff;
+  color: #1a384b;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* 1. PATIENT CARDS GRID */
+.pr-patient-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+}
+
+.pr-patient-card {
+  background: #ffffff;
+  border: 1px solid #e2eaee;
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+  transition: all 0.18s ease;
+}
+
+.pr-patient-card:hover {
+  border-color: #a7cfc8;
+  box-shadow: 0 6px 18px rgba(8, 127, 120, 0.08);
+  transform: translateY(-2px);
+}
+
+.pr-pc-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.pr-pc-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #e3f2ef, #c8e8e2);
+  color: #087f78;
+  font-weight: 700;
+  font-size: 14px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.pr-pc-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pr-pc-name-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pr-pc-name-link h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a384b;
+  letter-spacing: -0.2px;
+}
+
+.pr-pc-name-link:hover h4 {
+  color: #087f78;
+}
+
+.pr-pc-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
+  font-size: 11px;
+  color: #728796;
+}
+
+.pr-pc-allergy-alert {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: #fff6e8;
+  border: 1px solid #fedba8;
+  color: #9c670a;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.pr-pc-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pr-contact-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #f4f8fa;
+  border: 1px solid #e5edf1;
+  padding: 4px 9px;
+  border-radius: 6px;
+  font-size: 11px;
+  color: #4b6678;
+}
+
+.pr-pc-history {
+  margin: 0;
+  font-size: 12px;
+  color: #637989;
+  line-height: 1.5;
+  background: #fbfdfe;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border-left: 2px solid #b3d1cb;
+}
+
+.pr-pc-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid #edf3f5;
+}
+
+.pr-pc-act-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 7px 6px;
+  background: #f6faf9;
+  border: 1px solid #dce9e6;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #375b55;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.pr-pc-act-btn:hover {
+  background: #087f78;
+  border-color: #087f78;
+  color: #ffffff;
+}
+
+.pr-pc-act-btn.primary {
+  background: #e6f6f2;
+  border-color: #a4dbcf;
+  color: #08756e;
+}
+
+/* Enhanced Table */
+.pr-domain-table-wrap {
+  background: #ffffff;
+  border: 1px solid #e1e9ed;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.pr-domain-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.pr-domain-table th {
+  background: #f8fafb;
+  border-bottom: 1px solid #e5ecef;
+  padding: 13px 18px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #798e9d;
+  font-weight: 700;
+}
+
+.pr-domain-table td {
+  padding: 15px 18px;
+  border-bottom: 1px solid #edf2f5;
+  font-size: 12px;
+  color: #4b6678;
+  cursor: pointer;
+}
+
+.pr-domain-table tr:hover td {
+  background: #fbfdfc;
+}
+
+.pr-tbl-patient {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pr-safety-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-weight: 550;
+}
+
+.pr-safety-tag.warning { background: #fff5e5; color: #a16c0e; border: 1px solid #feddae; }
+.pr-safety-tag.safe { background: #eaf7f2; color: #2e8061; border: 1px solid #c9ecdd; }
+
+.pr-button-sm {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid #d8e5e2;
+  background: #ffffff;
+  color: #3b635c;
+  cursor: pointer;
+}
+
+.pr-button-sm.primary {
+  background: #087f78;
+  border-color: #087f78;
+  color: #ffffff;
+}
+
+/* 2. APPOINTMENTS TIMELINE */
+.pr-schedule-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pr-schedule-card {
+  display: grid;
+  grid-template-columns: 160px 1fr auto;
+  align-items: center;
+  gap: 20px;
+  background: #ffffff;
+  border: 1px solid #e2eaee;
+  border-left: 4px solid #087f78;
+  border-radius: 12px;
+  padding: 18px 22px;
+  transition: all 0.15s ease;
+}
+
+.pr-schedule-card:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.pr-schedule-card.cancelled {
+  border-left-color: #a4b4be;
+  opacity: 0.7;
+}
+
+.pr-sc-time {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: #557082;
+}
+
+.pr-sc-time strong {
+  font-size: 14px;
+  color: #1a384b;
+}
+
+.pr-sc-mode {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  background: #edf4f7;
+  padding: 2px 7px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.pr-sc-body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.pr-sc-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pr-sc-title-row h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a384b;
+}
+
+.pr-sc-reason {
+  margin: 0;
+  font-size: 12px;
+  color: #637b8b;
+}
+
+.pr-sc-clinician {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #087f78;
+  font-weight: 600;
+}
+
+.pr-sc-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 3. LAB KANBAN PIPELINE */
+.pr-kanban-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.pr-kanban-col {
+  background: #f7fafb;
+  border: 1px solid #e1ebef;
+  border-radius: 12px;
+  padding: 16px;
+  min-height: 480px;
+}
+
+.pr-kanban-col.amber { border-top: 4px solid #d99b26; }
+.pr-kanban-col.blue { border-top: 4px solid #3b76cf; }
+.pr-kanban-col.violet { border-top: 4px solid #855bd6; }
+.pr-kanban-col.teal { border-top: 4px solid #087f78; }
+
+.pr-col-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.pr-col-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.pr-col-title h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #244154;
+}
+
+.pr-col-count {
+  font-size: 11px;
+  font-weight: 700;
+  background: #e2ecf0;
+  color: #3b5a6e;
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+
+.pr-col-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pr-kanban-card {
+  background: #ffffff;
+  border: 1px solid #dfe7eb;
+  border-radius: 10px;
+  padding: 14px;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  transition: all 0.15s ease;
+}
+
+.pr-kanban-card:hover {
+  border-color: #087f78;
+  box-shadow: 0 4px 12px rgba(8, 127, 120, 0.09);
+  transform: translateY(-2px);
+}
+
+.pr-kc-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.pr-specimen-badge {
+  background: #eef6f9;
+  color: #2b617d;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.pr-kanban-card h4 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a384b;
+}
+
+.pr-kc-patient {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #4b687a;
+  margin-bottom: 4px;
+}
+
+.pr-kc-clinician {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #7b909e;
+  font-size: 11px;
+}
+
+.pr-kc-result-preview {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed #e8eef1;
+  font-size: 11px;
+  color: #395c55;
+  background: #f4faf8;
+  padding: 6px 8px;
+  border-radius: 5px;
+}
+
+.pr-kanban-empty {
+  text-align: center;
+  padding: 30px 10px;
+  font-size: 11px;
+  color: #92a4b0;
+  border: 1px dashed #e0eaee;
+  border-radius: 8px;
+}
+
+/* 4. INPATIENT BED BOARD (IPD) */
+.pr-bed-bays {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.pr-bed-card {
+  background: #ffffff;
+  border: 1px solid #e1e9ed;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+  transition: all 0.15s ease;
+}
+
+.pr-bed-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+}
+
+.pr-bed-card.occupied {
+  border-left: 4px solid #b8861d;
+}
+
+.pr-bed-card.discharged {
+  border-left: 4px solid #087f78;
+}
+
+.pr-bed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pr-bed-number {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 700;
+  font-size: 15px;
+  color: #1a384b;
+}
+
+.pr-bed-ward-pill {
+  font-size: 10px;
+  font-weight: 700;
+  background: #eef4f7;
+  color: #4b6678;
+  padding: 2px 7px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.pr-bed-patient {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a384b;
+}
+
+.pr-bed-reason {
+  margin: 0;
+  font-size: 12px;
+  color: #637989;
+}
+
+.pr-bed-admit-time {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #7b919f;
+}
+
+.pr-bed-nursing-snippet {
+  margin: 0;
+  font-size: 11px;
+  color: #557280;
+  background: #f7fafb;
+  padding: 6px 8px;
+  border-radius: 5px;
+}
+
+/* 5. PHARMACY DECK */
+.pr-pharmacy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.pr-pharmacy-card {
+  background: #ffffff;
+  border: 1px solid #e1eaed;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pr-pharmacy-card:hover {
+  border-color: #087f78;
+  box-shadow: 0 4px 14px rgba(8, 127, 120, 0.08);
+  transform: translateY(-2px);
+}
+
+.pr-ph-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pr-ph-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #e6f6f2;
+  color: #087f78;
+  display: grid;
+  place-items: center;
+}
+
+.pr-pharmacy-card h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a384b;
+}
+
+.pr-ph-batch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #708594;
+}
+
+.pr-ph-expiry {
+  font-weight: 600;
+  color: #557280;
+}
+
+.pr-ph-qty-block {
+  background: #f8fafb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pr-ph-qty-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #4b6678;
+}
+
+.pr-ph-qty-row strong {
+  font-size: 14px;
+  color: #1a384b;
+}
+
+.pr-ph-meter {
+  height: 6px;
+  background: #e2ecf0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.pr-ph-fill {
+  height: 100%;
+  border-radius: 3px;
+}
+
+.pr-ph-fill.good { background: #087f78; }
+.pr-ph-fill.low { background: #d99b26; }
+
+.pr-alert-text { color: #b8861d; font-weight: 600; font-size: 10px; }
+.pr-good-text { color: #087f78; font-size: 10px; }
+
+.pr-ph-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid #eef3f5;
+  font-size: 11px;
+  color: #7d92a0;
+}
+
+/* 6. TELEMEDICINE GRID */
+.pr-telemedicine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.pr-tele-card {
+  background: #ffffff;
+  border: 1px solid #e1e9ed;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+}
+
+.pr-tc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pr-tc-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #f2ebff;
+  color: #7f52cf;
+  display: grid;
+  place-items: center;
+}
+
+.pr-tele-card h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a384b;
+}
+
+.pr-tc-reason {
+  margin: 0;
+  font-size: 12px;
+  color: #617b8b;
+}
+
+.pr-tc-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: #4b6678;
+}
+
+.pr-tc-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pr-tc-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid #eef3f5;
+}
+
+/* 7. COMMUNICATIONS HUB */
+.pr-comms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 16px;
+}
+
+.pr-comm-card {
+  background: #ffffff;
+  border: 1px solid #e1e9ed;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pr-comm-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.pr-cc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pr-channel-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 5px;
+}
+
+.pr-channel-pill.whatsapp { background: #eafaf1; color: #1e874b; }
+.pr-channel-pill.sms { background: #eaf2ff; color: #3b71c9; }
+.pr-channel-pill.email { background: #f4ebff; color: #8750d4; }
+.pr-channel-pill.phone { background: #fff5e5; color: #b8861d; }
+
+.pr-comm-card h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a384b;
+}
+
+.pr-cc-recipient {
+  font-size: 11px;
+  color: #728795;
+}
+
+.pr-cc-bubble {
+  background: #f5f8fa;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #3b5566;
+  border-left: 3px solid #087f78;
+}
+
+.pr-cc-bubble p {
+  margin: 0;
+}
+
+.pr-cc-footer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #8b9ea9;
+  margin-top: auto;
+}
+
+/* ==========================================================================
+   8. CLAIMS & INSURANCE RCM LEDGER (Finance)
+   ========================================================================== */
+.pr-claims-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 16px;
+}
+
+.pr-claim-card {
+  background: #ffffff;
+  border: 1px solid #e1e9ed;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.pr-claim-card:hover {
+  border-color: #087f78;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(8, 127, 120, 0.08);
+}
+
+.pr-cl-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pr-payer-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 5px;
+  background: #eef4f9;
+  color: #2b5c7d;
+}
+
+.pr-payer-pill.large {
+  font-size: 13px;
+  padding: 5px 12px;
+}
+
+.pr-claim-card h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a384b;
+}
+
+.pr-cl-amount {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 12px;
+  color: #6a8292;
+}
+
+.pr-cl-amount strong {
+  font-size: 18px;
+  color: #1a384b;
+}
+
+.pr-cl-patient {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #4b6779;
+}
+
+.pr-cl-patient small {
+  color: #8b9ea9;
+  margin-left: auto;
+}
+
+.pr-cl-coding {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #627988;
+  background: #f7fafb;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   9. INVENTORY & CENTRAL SUPPLY TRACKER (Operations)
+   ========================================================================== */
+.pr-inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.pr-inventory-card {
+  background: #ffffff;
+  border: 1px solid #e1e9ed;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.pr-inventory-card:hover {
+  border-color: #087f78;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(8, 127, 120, 0.08);
+}
+
+.pr-inv-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pr-inv-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #3b5c71;
+  background: #eef5f8;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.pr-sku-tag {
+  font-size: 11px;
+  color: #7a8f9c;
+  font-family: monospace;
+}
+
+.pr-sku-tag.large {
+  font-size: 13px;
+  padding: 4px 8px;
+  background: #f2f6f8;
+  border-radius: 5px;
+}
+
+.pr-inventory-card h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a384b;
+}
+
+.pr-inv-qty-block {
+  background: #f8fafb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pr-inv-qty-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #4b6678;
+}
+
+.pr-inv-qty-row strong {
+  font-size: 14px;
+  color: #1a384b;
+}
+
+/* ==========================================================================
+   10. HR & STAFF DUTY ROSTER (Operations)
+   ========================================================================== */
+.pr-hr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 16px;
+}
+
+.pr-hr-card {
+  background: #ffffff;
+  border: 1px solid #e1e9ed;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.pr-hr-card:hover {
+  border-color: #087f78;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(8, 127, 120, 0.08);
+}
+
+.pr-hr-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pr-hr-type-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.pr-hr-type-pill.attendance { background: #eafaf1; color: #1e874b; }
+.pr-hr-type-pill.leave { background: #fff5e5; color: #b8861d; }
+
+.pr-hr-type-pill.large {
+  font-size: 13px;
+  padding: 5px 12px;
+}
+
+.pr-hr-card h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a384b;
+}
+
+.pr-hr-time-range {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #637c8c;
+}
+
+.pr-hr-notes {
+  margin: 0;
+  font-size: 12px;
+  color: #4f6877;
+  background: #f7fafb;
+  padding: 8px 10px;
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   11. PATIENT CRM & ENGAGEMENT HUB (Engagement)
+   ========================================================================== */
+.pr-crm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 16px;
+}
+
+.pr-crm-card {
+  background: #ffffff;
+  border: 1px solid #e1e9ed;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.pr-crm-card:hover {
+  border-color: #087f78;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(8, 127, 120, 0.08);
+}
+
+.pr-crm-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pr-consent-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.pr-consent-pill.granted { background: #eafaf1; color: #1e874b; }
+.pr-consent-pill.pending { background: #fff5e5; color: #b8861d; }
+
+.pr-consent-pill.large {
+  font-size: 12px;
+  padding: 5px 10px;
+}
+
+.pr-crm-card h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a384b;
+}
+
+.pr-crm-contact {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #4b6779;
+}
+
+.pr-crm-followup {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #b8861d;
+  font-weight: 600;
+}
+
+.pr-crm-source {
+  font-size: 11px;
+  color: #7b909e;
+  margin-top: auto;
+}
+
+/* ==========================================================================
+   12. CONSENT & FEEDBACK VAULT (Engagement)
+   ========================================================================== */
+.pr-consent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 16px;
+}
+
+.pr-consent-card {
+  background: #ffffff;
+  border: 1px solid #e1e9ed;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.pr-consent-card:hover {
+  border-color: #087f78;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(8, 127, 120, 0.08);
+}
+
+.pr-con-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pr-con-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #1e7065;
+  background: #e6f6f2;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.pr-consent-card h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a384b;
+}
+
+.pr-con-patient {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #4b6779;
+}
+
+.pr-con-witness {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #7b909e;
+}
+
+.pr-con-evidence {
+  margin: 0;
+  font-size: 11px;
+  color: #55707e;
+  background: #f7fafb;
+  padding: 8px 10px;
+  border-radius: 6px;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   13. TEMPLATES LIBRARY (Settings)
+   ========================================================================== */
+.pr-templates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 16px;
+}
+
+.pr-tmpl-card {
+  background: #ffffff;
+  border: 1px solid #e1e9ed;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.pr-tmpl-card:hover {
+  border-color: #087f78;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(8, 127, 120, 0.08);
+}
+
+.pr-tmpl-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pr-tmpl-specialty {
+  font-size: 11px;
+  font-weight: 700;
+  color: #2b5c7d;
+  background: #eef4f9;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.pr-tmpl-specialty.large {
+  font-size: 13px;
+  padding: 5px 12px;
+}
+
+.pr-tmpl-card h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a384b;
+}
+
+.pr-tmpl-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #708695;
+}
+
+.pr-tmpl-preview {
+  margin-top: 4px;
+  font-size: 11px;
+  color: #5a7382;
+  background: #f8fafb;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-family: monospace;
+}
+
+.pr-tmpl-preview p {
+  margin: 0;
+}
+
+/* ==========================================================================
+   14. BRANCH LOCATIONS (Settings)
+   ========================================================================== */
+.pr-locations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 16px;
+}
+
+.pr-loc-card {
+  background: #ffffff;
+  border: 1px solid #e1e9ed;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.pr-loc-card:hover {
+  border-color: #087f78;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(8, 127, 120, 0.08);
+}
+
+.pr-loc-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pr-loc-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #e6f6f2;
+  color: #087f78;
+  display: grid;
+  place-items: center;
+}
+
+.pr-loc-icon.large {
+  width: 42px;
+  height: 42px;
+}
+
+.pr-loc-card h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a384b;
+}
+
+.pr-loc-tz {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #728896;
+}
+
+.pr-loc-tz.large {
+  font-size: 13px;
+  color: #4b6779;
+}
+
+.pr-loc-address {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 12px;
+  color: #405d70;
+}
+
+.pr-loc-phone {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #405d70;
+}
+
+.pr-loc-hours {
+  margin: 0;
+  font-size: 11px;
+  color: #728896;
+}
+
+/* ==========================================================================
+   15. TREATMENTS & CARE PLANS (Clinical)
+   ========================================================================== */
+.pr-treatments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 16px;
+}
+
+.pr-treatment-card {
+  background: #ffffff;
+  border: 1px solid #e1e9ed;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.pr-treatment-card:hover {
+  border-color: #087f78;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(8, 127, 120, 0.08);
+}
+
+.pr-tr-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pr-tr-icon {
+  color: #d14d72;
+}
+
+.pr-treatment-card h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a384b;
+}
+
+.pr-tr-patient {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #4b6779;
+}
+
+.pr-tr-goals {
+  font-size: 11px;
+  color: #405d70;
+  background: #f7fafb;
+  padding: 8px 10px;
+  border-radius: 6px;
+}
+
+.pr-tr-goals strong {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #7c909e;
+  margin-bottom: 2px;
+}
+
+.pr-tr-goals p {
+  margin: 0;
+}
+
+.pr-tr-review {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #8b9ea9;
+}
+
+/* ==========================================================================
+   16. BESPOKE RECORD DETAIL MODALS (REPLACES GENERIC <dl>)
+   ========================================================================== */
+.pr-bespoke-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 6px 0 10px;
+}
+
+/* Detail Channel / Hero Headers */
+.pr-dt-channel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eef3f5;
+}
+
+.pr-dt-hero-card {
+  background: linear-gradient(135deg, #f7fafb 0%, #edf4f7 100%);
+  border: 1px solid #dfe9ed;
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pr-dt-hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pr-dt-hero-card h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a384b;
+}
+
+.pr-dt-hero-money {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pr-dt-hero-money small {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #7b919f;
+  letter-spacing: 0.5px;
+}
+
+.pr-dt-hero-money h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #1a384b;
+  margin: 0;
+}
+
+.pr-dt-hero-money span {
+  font-size: 12px;
+  color: #557283;
+}
+
+/* Meta Grid */
+.pr-dt-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.pr-dt-meta-box {
+  background: #f8fafc;
+  border: 1px solid #e5edf0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pr-dt-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #728997;
+  margin-bottom: 2px;
+}
+
+.pr-dt-patient-val,
+.pr-dt-time-val {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #1a384b;
+}
+
+.pr-dt-patient-val strong,
+.pr-dt-time-val strong {
+  font-size: 13px;
+}
+
+.pr-dt-meta-box small {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #6c8594;
+}
+
+/* Rendered Outbound Message Document (Communications Modal) */
+.pr-dt-rendered-doc {
+  background: #ffffff;
+  border: 1px solid #dfe7eb;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.pr-dt-rendered-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #4b6778;
+}
+
+/* Email Card Style */
+.pr-dt-email-card {
+  background: #ffffff;
+  border: 1px solid #e5ecef;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.pr-dt-email-header {
+  background: #f8fafc;
+  padding: 10px 14px;
+  border-bottom: 1px solid #e8eff2;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: #557080;
+}
+
+.pr-dt-email-header span {
+  color: #8c9fa9;
+  display: inline-block;
+  width: 55px;
+}
+
+.pr-dt-email-header strong {
+  color: #1a384b;
+}
+
+.pr-dt-email-body {
+  padding: 16px 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #2c4454;
+}
+
+.pr-dt-email-body p {
+  margin: 0 0 16px;
+}
+
+.pr-dt-email-sig {
+  border-top: 1px dashed #e1e9ed;
+  padding-top: 12px;
+  color: #637c8c;
+  font-size: 12px;
+}
+
+.pr-dt-email-sig p {
+  margin: 0;
+}
+
+/* Mobile Chat Bubble Mockup */
+.pr-dt-bubble-card {
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 90%;
+}
+
+.pr-dt-bubble-card.whatsapp {
+  background: #e8f7ed;
+  border: 1px solid #c9ebd4;
+  margin-left: auto;
+}
+
+.pr-dt-bubble-card.sms {
+  background: #eff5fa;
+  border: 1px solid #d8e5ee;
+  margin-left: auto;
+}
+
+.pr-dt-bubble-sender {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #3e6d59;
+}
+
+.pr-dt-bubble-card.sms .pr-dt-bubble-sender {
+  color: #3b5c72;
+}
+
+.pr-dt-bubble-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #1b3a2b;
+}
+
+.pr-dt-bubble-card.sms .pr-dt-bubble-text {
+  color: #1a384b;
+}
+
+.pr-dt-bubble-ticks {
+  font-size: 10px;
+  font-weight: 700;
+  text-align: right;
+  color: #2b8257;
+}
+
+.pr-dt-disclaimer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #79919f;
+  background: #f8fafb;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+/* Coding Chips & Decision Box */
+.pr-dt-coding-box,
+.pr-dt-decision-box,
+.pr-dt-notes-box,
+.pr-dt-interval-box,
+.pr-dt-evidence-container,
+.pr-dt-tmpl-spec {
+  background: #f8fafc;
+  border: 1px solid #e5edf0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pr-dt-coding-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pr-code-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  background: #eef4f7;
+  color: #2b5978;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.pr-dt-decision-box p,
+.pr-dt-notes-box p,
+.pr-dt-evidence-body p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #355364;
+}
+
+/* Stock Gauge Box (Inventory Detail) */
+.pr-dt-stock-gauge-box {
+  background: #f8fafc;
+  border: 1px solid #e5edf0;
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pr-dt-gauge-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #557283;
+}
+
+.pr-dt-gauge-header strong {
+  font-size: 15px;
+  color: #1a384b;
+}
+
+.pr-ph-meter.large {
+  height: 8px;
+}
+
+/* Follow-up card (CRM) */
+.pr-dt-followup-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff9ed;
+  border: 1px solid #f2e2be;
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #946914;
+}
+
+.pr-dt-followup-card strong {
+  display: block;
+  font-size: 13px;
+  color: #7a550d;
+}
+
+.pr-dt-followup-card small {
+  font-size: 11px;
+  color: #a07827;
+}
+
+.pr-dt-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #1a384b;
+}
+
+/* Interval Box (HR) */
+.pr-dt-interval-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #3b5a6e;
+}
+
+.pr-dt-interval-row div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+}
+
+/* Certificate Header (Consent) */
+.pr-dt-certificate-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #f1f8f7;
+  border: 1px solid #d3ebe7;
+  border-radius: 10px;
+  color: #087f78;
+}
+
+.pr-dt-certificate-header h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a384b;
+}
+
+.pr-dt-certificate-header small {
+  font-size: 11px;
+  color: #527c75;
+}
+
+.pr-dt-certificate-header .pr-badge {
+  margin-left: auto;
+}
+
+/* Template Content Spec (Templates) */
+.pr-dt-tmpl-content {
+  margin: 0;
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #2b495c;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Generic Fallback Grid */
+.pr-dt-field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.pr-dt-field-item {
+  background: #f8fafc;
+  border: 1px solid #e5edf0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pr-dt-field-item.wide {
+  grid-column: 1 / -1;
+}
+
+.pr-dt-field-item strong {
+  font-size: 13px;
+  color: #1a384b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .pr-kanban-board {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .pr-kanban-board {
+    grid-template-columns: 1fr;
+  }
+  .pr-schedule-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .pr-pc-actions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .pr-dt-meta-grid,
+  .pr-dt-field-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

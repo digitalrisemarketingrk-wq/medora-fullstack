@@ -1,0 +1,13 @@
+services:
+  api:
+    build: ./backend
+    env_file: ./backend/.env
+    ports:
+      - '8000:8000'
+    volumes:
+      - medora-dev-data:/app/medora-data
+    environment:
+      DATA_DIR: /app/medora-data
+    restart: unless-stopped
+volumes:
+  medora-dev-data:

@@ -1,0 +1,27 @@
+{
+  "name": "medora-fullstack",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter frontend dev",
+    "build": "pnpm --filter frontend build",
+    "start": "pnpm --filter frontend start",
+    "lint": "pnpm --filter frontend lint",
+    "typecheck": "pnpm --filter frontend typecheck",
+    "test:ui": "pnpm --filter frontend test:ui",
+    "check:secrets": "pnpm --filter frontend check:secrets",
+    "frontend:dev": "pnpm --filter frontend dev",
+    "frontend:build": "pnpm --filter frontend build",
+    "frontend:lint": "pnpm --filter frontend lint",
+    "frontend:typecheck": "pnpm --filter frontend typecheck",
+    "frontend:test": "pnpm --filter frontend test:ui",
+    "backend:dev": "node scripts/backend.mjs dev",
+    "backend:test": "node scripts/backend.mjs test",
+    "backend:seed": "node scripts/backend.mjs seed",
+    "backend:check": "node scripts/backend.mjs check"
+  },
+  "packageManager": "pnpm@11.25.0"
+}

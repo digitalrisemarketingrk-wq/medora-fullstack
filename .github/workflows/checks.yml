@@ -1,0 +1,29 @@
+name: Validate Medora
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck && pnpm test:ui
+      - run: python -m venv backend/.venv
+      - run: backend/.venv/bin/pip install -r backend/requirements-dev.txt
+      - run: pnpm backend:test
+      - run: pnpm build && pnpm check:secrets
+        env:
+          NEXT_PUBLIC_DATA_MODE: api
+          NEXT_PUBLIC_API_BASE_URL: /api/v1
+          GROQ_API_KEY: medora-private-canary-groq
+          SUPABASE_SECRET_KEY: medora-private-canary-supabase
+          QDRANT_API_KEY: medora-private-canary-qdrant
+          EMBEDDING_API_KEY: medora-private-canary-embedding
