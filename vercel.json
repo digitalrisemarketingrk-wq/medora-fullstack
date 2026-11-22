@@ -9,6 +9,7 @@
     "frontend": {
       "root": "frontend",
       "framework": "nextjs",
+      "buildCommand": "next build",
       "bindings": [
         {
           "type": "service",
