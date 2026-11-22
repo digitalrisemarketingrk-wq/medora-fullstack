@@ -72,7 +72,7 @@ async def seed_qdrant():
         test_queries = [
             "What was my last X-Ray and what does it say about lungs and heart?",
             "What were my blood test glucose and cholesterol results?",
-            "What did Dr Sarah Khan say during my annual review about blood pressure?",
+            "What did Dr. Rajesh Sharma say during my annual review about blood pressure?",
             "Who am I referred to for cardiology screening?"
         ]
 

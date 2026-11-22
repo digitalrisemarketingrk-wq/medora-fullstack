@@ -190,7 +190,7 @@ export function LiveChat({ ctx }: { ctx: AppContext }) {
     en: [
       { category: 'imaging', text: 'What was my last X-Ray report and what does it show?', icon: Scan, iconColor: '#0d9488', iconBg: '#e5f7f2' },
       { category: 'labs', text: 'Summarize my blood test cholesterol & glucose readings', icon: FlaskConical, iconColor: '#245be8', iconBg: '#eaf1ff' },
-      { category: 'visits', text: 'What did Dr Sarah Khan advise during my annual review?', icon: Stethoscope, iconColor: '#7c3aed', iconBg: '#efeaff' },
+      { category: 'visits', text: 'What did Dr. Rajesh Sharma advise during my annual review?', icon: Stethoscope, iconColor: '#7c3aed', iconBg: '#efeaff' },
       { category: 'visits', text: 'Who is my cardiology referral for and what is next?', icon: CalendarDays, iconColor: '#7c3aed', iconBg: '#efeaff' },
       { category: 'meds', text: 'Are there any interactions with my current prescriptions?', icon: Pill, iconColor: '#c45275', iconBg: '#ffedf2' },
       { category: 'labs', text: 'Were any of my metabolic panel markers out of range?', icon: FlaskConical, iconColor: '#245be8', iconBg: '#eaf1ff' }
@@ -204,7 +204,7 @@ export function LiveChat({ ctx }: { ctx: AppContext }) {
     hinglish: [
       { category: 'imaging', text: 'Mera last chest x-ray report kya show karta hai?', icon: Scan, iconColor: '#0d9488', iconBg: '#e5f7f2' },
       { category: 'labs', text: 'Blood test report me glucose aur lipid levels kaise hain?', icon: FlaskConical, iconColor: '#245be8', iconBg: '#eaf1ff' },
-      { category: 'visits', text: 'Dr Sarah Khan ne annual visit me kya advise diya tha?', icon: Stethoscope, iconColor: '#7c3aed', iconBg: '#efeaff' },
+      { category: 'visits', text: 'Dr. Rajesh Sharma ne annual visit me kya advise diya tha?', icon: Stethoscope, iconColor: '#7c3aed', iconBg: '#efeaff' },
       { category: 'visits', text: 'Cardiology consultation ke liye kya referral bana hai?', icon: CalendarDays, iconColor: '#7c3aed', iconBg: '#efeaff' }
     ],
     ta: [
@@ -796,7 +796,7 @@ export function LiveChat({ ctx }: { ctx: AppContext }) {
 
                     <button
                       type="button"
-                      onClick={() => void send('What did Dr Sarah Khan advise during my annual review?')}
+                      onClick={() => void send('What did Dr. Rajesh Sharma advise during my annual review?')}
                       style={{
                         padding: '12px 14px',
                         borderRadius: 10,
@@ -1615,7 +1615,7 @@ export function LiveChat({ ctx }: { ctx: AppContext }) {
                 </span>
                 <div>
                   <strong style={{ fontSize: 12 }}>Connected Doctors</strong>
-                  <small style={{ fontSize: 10.5 }}>Dr Sarah Khan · General Practice</small>
+                  <small style={{ fontSize: 10.5 }}>Dr. Rajesh Sharma · General Practice</small>
                 </div>
               </button>
 

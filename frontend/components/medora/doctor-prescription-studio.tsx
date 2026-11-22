@@ -254,7 +254,7 @@ export function DoctorPrescriptionStudio({ ctx }: { ctx: AppContext }) {
         type: 'Prescription',
         date: dateOffset(0),
         size: `${Math.max(1, Math.ceil(receiptText.length / 1024))} KB`,
-        summary: `Prescription issued by Dr. Sarah Khan for ${p.name}. Medications: ${rxItems.map(i => i.drug_name).join(', ')}. Diagnosis: ${diagnosis}.`
+        summary: `Prescription issued by Dr. Rajesh Sharma for ${p.name}. Medications: ${rxItems.map(i => i.drug_name).join(', ')}. Diagnosis: ${diagnosis}.`
       };
 
       const followUpTask = {
@@ -299,7 +299,7 @@ Clinic Reg No: REG-MH-2024-88410
 ==========================================================
 
 CONSULTANT PHYSICIAN:
-Dr. Sarah Khan, MBBS, MD, DM (Cardiology), FCCP
+Dr. Rajesh Sharma, MBBS, MD, DM (Cardiology), FCCP
 Medical Council Reg No: MCI-482910
 
 PATIENT DETAILS:
@@ -328,7 +328,7 @@ NEXT REVIEW / FOLLOW-UP:
 ${niceDate(dateOffset(followUpDays))} (in ${followUpDays} days)
 
 ==========================================================
-Digitally Signed by: Dr. Sarah Khan
+Digitally Signed by: Dr. Rajesh Sharma
 Verified via Medora Digital Health Gateway
 ==========================================================`;
   };
@@ -998,7 +998,7 @@ Verified via Medora Digital Health Gateway
               </div>
 
               <div className="pad-doctor-details">
-                <h3>Dr. Sarah Khan</h3>
+                <h3>Dr. Rajesh Sharma</h3>
                 <p style={{ fontWeight: 600 }}>MBBS, MD, DM (Cardiology), FCCP</p>
                 <p>Consultant Interventional Cardiologist & Physician</p>
                 <p style={{ fontSize: '11px', color: '#475569' }}>
@@ -1115,7 +1115,7 @@ Verified via Medora Digital Health Gateway
 
               <div className="pad-signature-block">
                 <div className="pad-signature-line"></div>
-                <strong style={{ fontSize: '13px', color: '#0f172a' }}>Dr. Sarah Khan</strong>
+                <strong style={{ fontSize: '13px', color: '#0f172a' }}>Dr. Rajesh Sharma</strong>
                 <div style={{ fontSize: '11px', color: '#475569' }}>Consultant Cardiologist & Physician</div>
                 <div style={{ fontSize: '10.5px', color: '#059669', marginTop: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
                   <ShieldCheck size={12} /> Digitally Authenticated &amp; Sealed

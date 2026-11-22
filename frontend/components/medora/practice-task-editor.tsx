@@ -177,7 +177,7 @@ export function PracticeTaskEditor({module, record, initialData, branches, branc
                       <div className="pr-preset-group">
                         <small className="pr-preset-title">Clinician Quick-Select:</small>
                         <div className="pr-preset-chips">
-                          {['Dr. Sarah Khan (Cardiology)', 'Dr. David Patel (General Practice)', 'Dr. Elena Rostova (Pediatrics)', 'Dr. Marcus Vance (Orthopedics)'].map(dr => (
+                          {['Dr. Rajesh Sharma (General Practice)', 'Dr. Amit Patel (Cardiology)', 'Dr. Priya Nair (Dermatology)', 'Dr. Aisha Rahman (Dentistry)'].map(dr => (
                             <button type="button" key={dr} className="pr-preset-chip" onClick={() => set('clinician', dr)} disabled={busy}>
                               {dr}
                             </button>
@@ -273,7 +273,7 @@ export function PracticeTaskEditor({module, record, initialData, branches, branc
                         <span>Requesting Clinician Quick-Select:</span>
                       </div>
                       <div className="pr-chip-group">
-                        {['Dr. Sarah Khan', 'Dr. David Patel', 'Dr. Elena Rostova', 'Dr. Marcus Vance'].map(dr => (
+                        {['Dr. Rajesh Sharma', 'Dr. Amit Patel', 'Dr. Priya Nair', 'Dr. Aisha Rahman'].map(dr => (
                           <button
                             type="button"
                             key={dr}

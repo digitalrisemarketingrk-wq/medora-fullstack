@@ -106,7 +106,7 @@ export function correctMedicalPhonetics(text: string): string {
 }
 
 const SAMPLE_RAW_CONSULTATION = `Doctor: Good morning Priya, um, how have you been feeling since we started you on the Lisinopril for your blood pressure?
-Patient: Good morning Dr. Khan. Uh, my energy is slightly better, but, um, you know, I've developed this annoying dry cough in the evenings. And, like, yesterday when I climbed the stairs, I felt a little bit of breathlessness, and hmm, my ankles felt slightly swollen.
+Patient: Good morning Dr. Sharma. Uh, my energy is slightly better, but, um, you know, I've developed this annoying dry cough in the evenings. And, like, yesterday when I climbed the stairs, I felt a little bit of breathlessness, and hmm, my ankles felt slightly swollen.
 Doctor: I see. Let's check your vitals right away. Your blood pressure today in clinic is 134 over 84 mmHg, pulse is 74 bpm, regular rhythm. Oxygen saturation is 98% on room air.
 Patient: Is that, like, normal or high?
 Doctor: Your blood pressure is fairly well controlled, but the dry cough is a classic bradykinin effect from the Lisinopril. And you have trace pedal edema bilaterally. I recommend we switch you from Lisinopril to an ARB like Telmisartan 40mg once daily in the morning. ARBs give the same heart and kidney protection without triggering the dry cough.

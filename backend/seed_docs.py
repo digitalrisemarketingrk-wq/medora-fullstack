@@ -60,7 +60,7 @@ sample_docs = [
         'type': 'Consultation',
         'date': offset(-14),
         'size': '180 KB',
-        'summary': 'Annual comprehensive consultation with Dr Sarah Khan. Blood pressure measured at 118/76 mmHg. Resting pulse 68 bpm. BMI 22.4. Discussed lifestyle optimization, routine physical activity, and continued Vitamin D supplementation (1000 IU daily). Next annual review scheduled in 12 months.',
+        'summary': 'Annual comprehensive consultation with Dr. Rajesh Sharma. Blood pressure measured at 118/76 mmHg. Resting pulse 68 bpm. BMI 22.4. Discussed lifestyle optimization, routine physical activity, and continued Vitamin D supplementation (1000 IU daily). Next annual review scheduled in 12 months.',
         'findings': [
             'Blood Pressure: 118/76 mmHg (Normotensive)',
             'Resting Pulse: 68 bpm (Regular rate and rhythm)',
@@ -73,7 +73,7 @@ sample_docs = [
         ],
         'analysisStatus': 'analysed',
         'indexed': True,
-        'extractedText': 'CLINIC: Riverside Medical Centre | CLINICIAN: Dr Sarah Khan | PATIENT: Alex Morgan | REASON: Annual routine preventive health review | VITALS: BP 118/76 mmHg, HR 68 bpm, SpO2 99%, BMI 22.4 kg/m2 | SUMMARY: Patient in good overall health. Dietary habits and aerobic fitness discussed. Continue Vitamin D3 1000 IU daily.'
+        'extractedText': 'CLINIC: Apollo City Clinic | CLINICIAN: Dr. Rajesh Sharma | PATIENT: Rahul Sharma | REASON: Annual routine preventive health review | VITALS: BP 118/76 mmHg, HR 68 bpm, SpO2 99%, BMI 22.4 kg/m2 | SUMMARY: Patient in good overall health. Dietary habits and aerobic fitness discussed. Continue Vitamin D3 1000 IU daily.'
     },
     {
         'id': 'doc_referral_04',
@@ -81,10 +81,10 @@ sample_docs = [
         'type': 'Referral',
         'date': offset(-3),
         'size': '165 KB',
-        'summary': 'Elective referral to Dr Daniel Brooks (Cardiology) at Westminster Health Clinic for routine athletic cardiovascular screening prior to half-marathon participation. Baseline resting ECG unremarkable.',
+        'summary': 'Elective referral to Dr. Amit Patel (Cardiology) at Apollo City Clinic for routine athletic cardiovascular screening prior to half-marathon participation. Baseline resting ECG unremarkable.',
         'findings': [
-            'Referring Clinician: Dr Sarah Khan (Riverside Medical Centre)',
-            'Recipient: Dr Daniel Brooks (Westminster Health Clinic)',
+            'Referring Clinician: Dr. Rajesh Sharma (Apollo City Clinic)',
+            'Recipient: Dr. Amit Patel (Apollo City Clinic)',
             'Indication: Routine pre-sports cardiovascular checkup',
             'ECG: Normal sinus rhythm, normal axis, no ST-T abnormalities'
         ],
@@ -94,7 +94,7 @@ sample_docs = [
         ],
         'analysisStatus': 'analysed',
         'indexed': True,
-        'extractedText': 'REFERRAL: Dr Sarah Khan to Dr Daniel Brooks | Westminster Health Clinic Cardiology Service | PATIENT: Alex Morgan | NOTES: Referring Alex for routine sports cardiology screening ahead of half-marathon race. Resting ECG normal sinus rhythm. No cardiovascular symptoms.'
+        'extractedText': 'REFERRAL: Dr. Rajesh Sharma to Dr. Amit Patel | Apollo City Clinic Cardiology Service | PATIENT: Rahul Sharma | NOTES: Referring Rahul for routine sports cardiology screening ahead of half-marathon race. Resting ECG normal sinus rhythm. No cardiovascular symptoms.'
     }
 ]
 

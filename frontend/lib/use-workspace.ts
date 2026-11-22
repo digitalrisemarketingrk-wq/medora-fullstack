@@ -42,7 +42,34 @@ export function useRemoteWorkspace(ownerId?: string, enabled=true) {
     }
   }, [ownerId, accept]);
 
-  useEffect(() => {if(enabled)void reload(); return () => {++epoch.current; if (timer.current) clearTimeout(timer.current);};}, [reload,enabled]);
+  useEffect(() => {
+    if (!enabled) return;
+    void reload();
+    const onFocus = () => {
+      if (dirty.current === 0 && !mutation.current) {
+        void reload();
+      }
+    };
+    window.addEventListener('focus', onFocus);
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible' && dirty.current === 0 && !mutation.current) {
+        void reload();
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+    const interval = setInterval(() => {
+      if (document.visibilityState === 'visible' && dirty.current === 0 && !mutation.current) {
+        void reload();
+      }
+    }, 8000);
+    return () => {
+      ++epoch.current;
+      if (timer.current) clearTimeout(timer.current);
+      window.removeEventListener('focus', onFocus);
+      document.removeEventListener('visibilitychange', onVisibility);
+      clearInterval(interval);
+    };
+  }, [reload, enabled]);
 
   const flush = useCallback(async () => {
     if (pending.current) {await pending.current; return;}

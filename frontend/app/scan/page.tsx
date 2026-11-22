@@ -282,22 +282,22 @@ function ScannerContent() {
             const d = JSON.parse(raw);
             if (isLife) {
               d.team = d.team || {};
-              d.team['Dr Sarah Khan'] = true;
+              d.team['Dr. Rajesh Sharma'] = true;
               d.access = d.access || [];
-              const exIdx = d.access.findIndex((a: any) => a.name === 'Dr Sarah Khan');
+              const exIdx = d.access.findIndex((a: any) => a.name === 'Dr. Rajesh Sharma');
               if (exIdx >= 0) {
                 d.access[exIdx].scope = 'Lifetime care access · Permanently connected';
                 d.access[exIdx].active = true;
               } else {
                 d.access.unshift({
-                  id: 'x-doc-sarah',
-                  name: 'Dr Sarah Khan',
+                  id: 'x-doc-rajesh',
+                  name: 'Dr. Rajesh Sharma',
                   scope: 'Lifetime care access · Permanently connected',
                   active: true
                 });
               }
               d.patients = d.patients || [];
-              const patIdx = d.patients.findIndex((p: any) => p.name === 'Alex Morgan' || p.id === 'p1');
+              const patIdx = d.patients.findIndex((p: any) => p.name === 'Rahul Sharma' || p.name === 'Alex Morgan' || p.id === 'p1');
               if (patIdx >= 0) {
                 d.patients[patIdx].condition = `Lifetime Connected · ${reason}`;
                 d.patients[patIdx].lastVisit = new Date().toISOString().slice(0, 10);
@@ -305,7 +305,7 @@ function ScannerContent() {
               d.audit = d.audit || [];
               d.audit.unshift({
                 id: Math.random().toString(36).slice(2, 10),
-                title: `Lifetime access accepted by Dr Sarah Khan (doctor) · Permanently connected · Reason: ${reason}`,
+                title: `Lifetime access accepted by Dr. Rajesh Sharma (doctor) · Permanently connected · Reason: ${reason}`,
                 time: 'Just now'
               });
               localStorage.setItem('medora-demo-v1', JSON.stringify(d));
@@ -482,7 +482,7 @@ function ScannerContent() {
                   onClick={() => void handleQuickDoctorLogin()}
                 >
                   <Stethoscope size={16} />
-                  1-Click Doctor Quick-Auth (Dr Sarah Khan)
+                  1-Click Doctor Quick-Auth (Dr. Rajesh Sharma)
                 </button>
 
                 <a
@@ -536,7 +536,7 @@ function ScannerContent() {
                   className="btn primary full"
                   onClick={() => void handleQuickDoctorLogin()}
                 >
-                  <Stethoscope size={16} /> Switch to Doctor Account (Dr Sarah Khan)
+                  <Stethoscope size={16} /> Switch to Doctor Account (Dr. Rajesh Sharma)
                 </button>
 
                 <a className="btn secondary full" href="/patient">
@@ -990,7 +990,7 @@ function ScannerContent() {
                       }}
                     >
                       {preview.access_type === 'lifetime'
-                        ? 'Upon intake, this patient will be permanently added to your patient registry with their full medical history, and Dr. Sarah Khan will be listed in their connected care circle.'
+                        ? 'Upon intake, this patient will be permanently added to your patient registry with their full medical history, and Dr. Rajesh Sharma will be listed in their connected care circle.'
                         : 'Access will grant a 15-minute emergency review session without adding the patient to your permanent registry.'}
                     </p>
                   </div>

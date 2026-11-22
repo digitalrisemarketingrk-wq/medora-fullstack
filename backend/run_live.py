@@ -9,4 +9,4 @@ if __name__ == "__main__":
     else:
         print("[Medora] Starting in Local SQLite mode (Supabase unconfigured or offline) on http://127.0.0.1:8000")
         print(f"[Medora] Demo accounts enabled: {settings.demo_accounts_enabled}")
-    uvicorn.run("medora.app:app", host="127.0.0.1", port=8000)
+    uvicorn.run("medora.app:app", host="127.0.0.1", port=8000, reload=True, reload_dirs=["backend"])

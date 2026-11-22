@@ -1771,14 +1771,14 @@ export function PracticeTelemedicineStudio({
                 <div className="flex flex-col gap-2">
                   <div className="pr-ts-demo-add-row">
                     <div>
-                      <strong>Sarah Jenkins</strong>
+                      <strong>Sunita Sharma</strong>
                       <span className="pr-ts-role-tag caregiver ml-2">Family Caregiver</span>
                       <small className="block text-slate-500 text-[11px]">Daughter / Primary At-Home Caregiver</small>
                     </div>
                     <button
                       type="button"
                       className="pr-button-sm primary"
-                      onClick={() => addDemoParticipant('caregiver', 'Sarah Jenkins')}
+                      onClick={() => addDemoParticipant('caregiver', 'Sunita Sharma')}
                     >
                       <UserPlus size={13} /> Add to Room
                     </button>

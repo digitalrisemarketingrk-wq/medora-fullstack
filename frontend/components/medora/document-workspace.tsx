@@ -62,7 +62,7 @@ export function DocumentReview({ ctx, document: doc }: { ctx: AppContext; docume
   const [compareId, setCompareId] = useState(ctx.data.documents.find((d) => d.id !== doc.id)?.id || '');
   const [comparison, setComparison] = useState('');
   const [share, setShare] = useState(false);
-  const [recipient, setRecipient] = useState('Dr Sarah Khan');
+  const [recipient, setRecipient] = useState('Dr. Rajesh Sharma');
   const [permission, setPermission] = useState('Summary only');
   const [expires, setExpires] = useState(dateOffset(7));
   const [consent, setConsent] = useState(false);
@@ -204,10 +204,10 @@ export function DocumentReview({ ctx, document: doc }: { ctx: AppContext; docume
             ? doc.deleting
               ? 'Deletion needs retry'
               : analysed
-              ? 'AI summary · Review required'
-              : isStored
-              ? 'Stored privately'
-              : 'Care record'
+                ? 'AI summary · Review required'
+                : isStored
+                  ? 'Stored privately'
+                  : 'Care record'
             : 'Scripted preview'}
         </span>
       </div>
@@ -584,612 +584,612 @@ export function DocumentReview({ ctx, document: doc }: { ctx: AppContext; docume
       )}
 
       {viewMode === 'tabs' && (
-      <TabView items={['Summary', 'Translate', 'Doctor questions', 'Compare']} value={tab} onChange={setTab}>
-        {/* SUMMARY TAB */}
-        {tab === 'Summary' && (
-          <>
-            <div className="document-extraction">
-              <span>
-                <Check size={14} /> Record details ready
-              </span>
-              {(!API_MODE || analysed) && (
+        <TabView items={['Summary', 'Translate', 'Doctor questions', 'Compare']} value={tab} onChange={setTab}>
+          {/* SUMMARY TAB */}
+          {tab === 'Summary' && (
+            <>
+              <div className="document-extraction">
                 <span>
-                  <Check size={14} /> Summary ready to review
+                  <Check size={14} /> Record details ready
                 </span>
-              )}
-              {doc.indexed && (
-                <span>
-                  <Check size={14} /> Search indexed
-                </span>
-              )}
-            </div>
-
-            <div className="summary-surface">
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                <span className="feature-kicker">IN PLAIN LANGUAGE</span>
-                <button
-                  className="btn ghost"
-                  style={{ fontSize: 11, padding: '2px 8px', minHeight: 24, gap: 5 }}
-                  onClick={() => toggleReadAloud(doc.summary, 'en-IN')}
-                >
-                  {isReadingAloud ? <VolumeX size={13} color="#e11d48" /> : <Volume2 size={13} color="#4f46e5" />}
-                  {isReadingAloud ? 'Stop reading' : 'Read aloud'}
-                </button>
-              </div>
-              <p>{doc.summary}</p>
-            </div>
-
-            {!!doc.findings?.length && (
-              <section className="analysis-findings">
-                <h3>Recorded findings</h3>
-                <ul>
-                  {doc.findings.map((f, i) => (
-                    <li key={i}>{f}</li>
-                  ))}
-                </ul>
-              </section>
-            )}
-
-            <div className="document-fact-grid">
-              <div>
-                <span>Document type</span>
-                <strong>{doc.type}</strong>
-              </div>
-              <div>
-                <span>Added to your timeline</span>
-                <strong>{niceDate(doc.date)}</strong>
-              </div>
-              <div>
-                <span>Analysis status</span>
-                <strong>
-                  {API_MODE
-                    ? analysed
-                      ? 'Needs clinician review'
-                      : isStored
-                      ? 'Awaiting analysis'
-                      : 'Care record'
-                    : 'Demo only'}
-                </strong>
-              </div>
-            </div>
-
-            {/* Quick Multi-Lingual & Voice Action Card */}
-            <div
-              style={{
-                marginTop: 18,
-                padding: '14px 18px',
-                borderRadius: 14,
-                background: 'linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%)',
-                border: '1px solid #bbf7d0',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: 10
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <span
-                  style={{
-                    width: 34,
-                    height: 34,
-                    borderRadius: '50%',
-                    background: '#ffffff',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#059669',
-                    boxShadow: '0 2px 8px rgba(5, 150, 105, 0.15)'
-                  }}
-                >
-                  <Languages size={18} />
-                </span>
-                <div>
-                  <strong style={{ fontSize: 13, color: '#0f172a', display: 'block' }}>
-                    Need this in Hindi or a regional language?
-                  </strong>
-                  <span style={{ fontSize: 11, color: '#475569' }}>
-                    Instant AI translation & voice reading in 10+ Indian languages
+                {(!API_MODE || analysed) && (
+                  <span>
+                    <Check size={14} /> Summary ready to review
                   </span>
+                )}
+                {doc.indexed && (
+                  <span>
+                    <Check size={14} /> Search indexed
+                  </span>
+                )}
+              </div>
+
+              <div className="summary-surface">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                  <span className="feature-kicker">IN PLAIN LANGUAGE</span>
+                  <button
+                    className="btn ghost"
+                    style={{ fontSize: 11, padding: '2px 8px', minHeight: 24, gap: 5 }}
+                    onClick={() => toggleReadAloud(doc.summary, 'en-IN')}
+                  >
+                    {isReadingAloud ? <VolumeX size={13} color="#e11d48" /> : <Volume2 size={13} color="#4f46e5" />}
+                    {isReadingAloud ? 'Stop reading' : 'Read aloud'}
+                  </button>
                 </div>
+                <p>{doc.summary}</p>
               </div>
-              <div style={{ display: 'flex', gap: 8 }}>
-                <button className="btn primary" style={{ fontSize: 12, padding: '4px 12px' }} onClick={() => setTab('Translate')}>
-                  <Languages size={14} /> Translate
-                </button>
-                <button
-                  className="btn secondary"
-                  style={{ fontSize: 12, padding: '4px 12px', background: '#ffffff' }}
-                  onClick={() => setVoiceModalOpen(true)}
-                >
-                  <Mic size={14} /> Voice Chat
-                </button>
-              </div>
-            </div>
 
-            <div className="review-next-step" style={{ marginTop: 14 }}>
-              <ClipboardList size={20} />
-              <div>
-                <h3>A conversation to prepare</h3>
-                <p>Keep your questions ready and review the document with your clinician.</p>
-              </div>
-              <button className="btn secondary" onClick={() => setTab('Doctor questions')}>
-                Prepare questions
-              </button>
-            </div>
+              {!!doc.findings?.length && (
+                <section className="analysis-findings">
+                  <h3>Recorded findings</h3>
+                  <ul>
+                    {doc.findings.map((f, i) => (
+                      <li key={i}>{f}</li>
+                    ))}
+                  </ul>
+                </section>
+              )}
 
-            {(API_MODE ? doc.glossary : sampleGlossary)?.length ? (
-              <details className="term-glossary">
-                <summary>Terminology explained</summary>
-                {(API_MODE ? doc.glossary : sampleGlossary)?.map((g) => (
-                  <div key={g.term}>
-                    <strong>{g.term}</strong>
-                    <p>{g.meaning}</p>
-                  </div>
-                ))}
-              </details>
-            ) : null}
-          </>
-        )}
-
-        {/* TRANSLATE TAB */}
-        {tab === 'Translate' && (
-          <div className="document-translate-tab" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            {/* Header & Language Selection Card */}
-            <div
-              style={{
-                padding: '16px 20px',
-                borderRadius: 14,
-                background: '#ffffff',
-                border: '1px solid #e2e8f0',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.02)'
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+              <div className="document-fact-grid">
                 <div>
-                  <h3 style={{ fontSize: 15, fontWeight: 700, margin: 0, color: '#0f172a' }}>
-                    Instant Multi-Lingual Medical Translation
-                  </h3>
-                  <p style={{ fontSize: 12, margin: 0, color: '#64748b' }}>
-                    Select your preferred Indian regional language for clinical translation with glossary & voice.
-                  </p>
+                  <span>Document type</span>
+                  <strong>{doc.type}</strong>
                 </div>
-                <span className="badge" style={{ background: '#ecfdf5', color: '#047857', border: '1px solid #a7f3d0' }}>
-                  Multi-Lingual AI
-                </span>
+                <div>
+                  <span>Added to your timeline</span>
+                  <strong>{niceDate(doc.date)}</strong>
+                </div>
+                <div>
+                  <span>Analysis status</span>
+                  <strong>
+                    {API_MODE
+                      ? analysed
+                        ? 'Needs clinician review'
+                        : isStored
+                          ? 'Awaiting analysis'
+                          : 'Care record'
+                      : 'Demo only'}
+                  </strong>
+                </div>
               </div>
 
-              {/* Language Selector Grid / Pills */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}>
-                {INDIAN_LANGUAGES.map((lang) => {
-                  const isSelected = targetLang.code === lang.code;
-                  return (
-                    <button
-                      key={lang.code}
-                      onClick={() => {
-                        setTargetLang(lang);
-                        void handleTranslate(lang);
-                      }}
-                      style={{
-                        padding: '6px 12px',
-                        borderRadius: 20,
-                        border: isSelected ? '2px solid #4f46e5' : '1px solid #cbd5e1',
-                        background: isSelected ? '#eff6ff' : '#f8fafc',
-                        color: isSelected ? '#1e40af' : '#334155',
-                        fontSize: 12,
-                        fontWeight: isSelected ? 700 : 500,
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: 6,
-                        transition: 'all 0.15s ease'
-                      }}
-                    >
-                      <span>{lang.flag}</span>
-                      <span>{lang.name}</span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Action Button */}
-              <div style={{ display: 'flex', gap: 10 }}>
-                <button
-                  className="btn primary"
-                  disabled={translating}
-                  onClick={() => void handleTranslate(targetLang)}
-                  style={{ gap: 6 }}
-                >
-                  <Languages size={15} />
-                  {translating ? `Translating into ${targetLang.name}…` : `Translate to ${targetLang.name}`}
-                </button>
-
-                <button
-                  className="btn secondary"
-                  onClick={() => setVoiceModalOpen(true)}
-                  style={{ gap: 6 }}
-                >
-                  <Mic size={15} /> Voice Discussion in {targetLang.name.split(' ')[0]}
-                </button>
-              </div>
-            </div>
-
-            {/* Translation Output Display */}
-            {translationData ? (
+              {/* Quick Multi-Lingual & Voice Action Card */}
               <div
                 style={{
-                  background: '#ffffff',
-                  border: '1px solid #cbd5e1',
-                  borderRadius: 16,
-                  padding: '20px',
-                  boxShadow: '0 4px 16px rgba(0,0,0,0.03)'
+                  marginTop: 18,
+                  padding: '14px 18px',
+                  borderRadius: 14,
+                  background: 'linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%)',
+                  border: '1px solid #bbf7d0',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                  gap: 10
                 }}
               >
-                {/* Title & Read Aloud Bar */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <span
+                    style={{
+                      width: 34,
+                      height: 34,
+                      borderRadius: '50%',
+                      background: '#ffffff',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#059669',
+                      boxShadow: '0 2px 8px rgba(5, 150, 105, 0.15)'
+                    }}
+                  >
+                    <Languages size={18} />
+                  </span>
+                  <div>
+                    <strong style={{ fontSize: 13, color: '#0f172a', display: 'block' }}>
+                      Need this in Hindi or a regional language?
+                    </strong>
+                    <span style={{ fontSize: 11, color: '#475569' }}>
+                      Instant AI translation & voice reading in 10+ Indian languages
+                    </span>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <button className="btn primary" style={{ fontSize: 12, padding: '4px 12px' }} onClick={() => setTab('Translate')}>
+                    <Languages size={14} /> Translate
+                  </button>
+                  <button
+                    className="btn secondary"
+                    style={{ fontSize: 12, padding: '4px 12px', background: '#ffffff' }}
+                    onClick={() => setVoiceModalOpen(true)}
+                  >
+                    <Mic size={14} /> Voice Chat
+                  </button>
+                </div>
+              </div>
+
+              <div className="review-next-step" style={{ marginTop: 14 }}>
+                <ClipboardList size={20} />
+                <div>
+                  <h3>A conversation to prepare</h3>
+                  <p>Keep your questions ready and review the document with your clinician.</p>
+                </div>
+                <button className="btn secondary" onClick={() => setTab('Doctor questions')}>
+                  Prepare questions
+                </button>
+              </div>
+
+              {(API_MODE ? doc.glossary : sampleGlossary)?.length ? (
+                <details className="term-glossary">
+                  <summary>Terminology explained</summary>
+                  {(API_MODE ? doc.glossary : sampleGlossary)?.map((g) => (
+                    <div key={g.term}>
+                      <strong>{g.term}</strong>
+                      <p>{g.meaning}</p>
+                    </div>
+                  ))}
+                </details>
+              ) : null}
+            </>
+          )}
+
+          {/* TRANSLATE TAB */}
+          {tab === 'Translate' && (
+            <div className="document-translate-tab" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {/* Header & Language Selection Card */}
+              <div
+                style={{
+                  padding: '16px 20px',
+                  borderRadius: 14,
+                  background: '#ffffff',
+                  border: '1px solid #e2e8f0',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.02)'
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                  <div>
+                    <h3 style={{ fontSize: 15, fontWeight: 700, margin: 0, color: '#0f172a' }}>
+                      Instant Multi-Lingual Medical Translation
+                    </h3>
+                    <p style={{ fontSize: 12, margin: 0, color: '#64748b' }}>
+                      Select your preferred Indian regional language for clinical translation with glossary & voice.
+                    </p>
+                  </div>
+                  <span className="badge" style={{ background: '#ecfdf5', color: '#047857', border: '1px solid #a7f3d0' }}>
+                    Multi-Lingual AI
+                  </span>
+                </div>
+
+                {/* Language Selector Grid / Pills */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}>
+                  {INDIAN_LANGUAGES.map((lang) => {
+                    const isSelected = targetLang.code === lang.code;
+                    return (
+                      <button
+                        key={lang.code}
+                        onClick={() => {
+                          setTargetLang(lang);
+                          void handleTranslate(lang);
+                        }}
+                        style={{
+                          padding: '6px 12px',
+                          borderRadius: 20,
+                          border: isSelected ? '2px solid #4f46e5' : '1px solid #cbd5e1',
+                          background: isSelected ? '#eff6ff' : '#f8fafc',
+                          color: isSelected ? '#1e40af' : '#334155',
+                          fontSize: 12,
+                          fontWeight: isSelected ? 700 : 500,
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 6,
+                          transition: 'all 0.15s ease'
+                        }}
+                      >
+                        <span>{lang.flag}</span>
+                        <span>{lang.name}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Action Button */}
+                <div style={{ display: 'flex', gap: 10 }}>
+                  <button
+                    className="btn primary"
+                    disabled={translating}
+                    onClick={() => void handleTranslate(targetLang)}
+                    style={{ gap: 6 }}
+                  >
+                    <Languages size={15} />
+                    {translating ? `Translating into ${targetLang.name}…` : `Translate to ${targetLang.name}`}
+                  </button>
+
+                  <button
+                    className="btn secondary"
+                    onClick={() => setVoiceModalOpen(true)}
+                    style={{ gap: 6 }}
+                  >
+                    <Mic size={15} /> Voice Discussion in {targetLang.name.split(' ')[0]}
+                  </button>
+                </div>
+              </div>
+
+              {/* Translation Output Display */}
+              {translationData ? (
                 <div
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    paddingBottom: 14,
-                    borderBottom: '1px solid #f1f5f9',
-                    marginBottom: 16
+                    background: '#ffffff',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: 16,
+                    padding: '20px',
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.03)'
                   }}
                 >
-                  <div>
+                  {/* Title & Read Aloud Bar */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      paddingBottom: 14,
+                      borderBottom: '1px solid #f1f5f9',
+                      marginBottom: 16
+                    }}
+                  >
+                    <div>
+                      <span
+                        style={{
+                          fontSize: 11,
+                          fontWeight: 700,
+                          color: '#4f46e5',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.05em'
+                        }}
+                      >
+                        {targetLang.name} Translation
+                      </span>
+                      <h2 style={{ fontSize: 18, fontWeight: 700, margin: '2px 0 0', color: '#0f172a' }}>
+                        {translationData.translated_name}
+                      </h2>
+                    </div>
+
+                    <button
+                      className={`btn ${isReadingAloud ? 'secondary' : 'primary'}`}
+                      style={{ fontSize: 12, padding: '6px 14px', borderRadius: 20, gap: 6 }}
+                      onClick={() => toggleReadAloud(translationData.translated_summary, targetLang.code)}
+                    >
+                      {isReadingAloud ? <VolumeX size={15} color="#e11d48" /> : <Volume2 size={15} />}
+                      {isReadingAloud ? 'Stop audio' : `Read aloud (${targetLang.name.split(' ')[0]})`}
+                    </button>
+                  </div>
+
+                  {/* Translated Summary */}
+                  <div
+                    style={{
+                      background: '#f8faff',
+                      border: '1px solid #dbeafe',
+                      borderRadius: 12,
+                      padding: '16px',
+                      marginBottom: 18
+                    }}
+                  >
                     <span
                       style={{
                         fontSize: 11,
                         fontWeight: 700,
-                        color: '#4f46e5',
+                        color: '#1e40af',
                         textTransform: 'uppercase',
-                        letterSpacing: '0.05em'
+                        display: 'block',
+                        marginBottom: 6
                       }}
                     >
-                      {targetLang.name} Translation
+                      सरल भाषा में सारांश (Plain Language Summary)
                     </span>
-                    <h2 style={{ fontSize: 18, fontWeight: 700, margin: '2px 0 0', color: '#0f172a' }}>
-                      {translationData.translated_name}
-                    </h2>
+                    <p style={{ fontSize: 14, lineHeight: 1.6, color: '#1e293b', margin: 0 }}>
+                      {translationData.translated_summary}
+                    </p>
                   </div>
 
-                  <button
-                    className={`btn ${isReadingAloud ? 'secondary' : 'primary'}`}
-                    style={{ fontSize: 12, padding: '6px 14px', borderRadius: 20, gap: 6 }}
-                    onClick={() => toggleReadAloud(translationData.translated_summary, targetLang.code)}
-                  >
-                    {isReadingAloud ? <VolumeX size={15} color="#e11d48" /> : <Volume2 size={15} />}
-                    {isReadingAloud ? 'Stop audio' : `Read aloud (${targetLang.name.split(' ')[0]})`}
-                  </button>
-                </div>
+                  {/* Translated Findings */}
+                  {!!translationData.translated_findings?.length && (
+                    <div style={{ marginBottom: 18 }}>
+                      <h3 style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>
+                        मुख्य निष्कर्ष (Key Findings)
+                      </h3>
+                      <ul
+                        style={{
+                          paddingLeft: 20,
+                          margin: 0,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: 6,
+                          fontSize: 13,
+                          color: '#334155'
+                        }}
+                      >
+                        {translationData.translated_findings.map((f, i) => (
+                          <li key={i}>{f}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
 
-                {/* Translated Summary */}
-                <div
-                  style={{
-                    background: '#f8faff',
-                    border: '1px solid #dbeafe',
-                    borderRadius: 12,
-                    padding: '16px',
-                    marginBottom: 18
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: 11,
-                      fontWeight: 700,
-                      color: '#1e40af',
-                      textTransform: 'uppercase',
-                      display: 'block',
-                      marginBottom: 6
-                    }}
-                  >
-                    सरल भाषा में सारांश (Plain Language Summary)
-                  </span>
-                  <p style={{ fontSize: 14, lineHeight: 1.6, color: '#1e293b', margin: 0 }}>
-                    {translationData.translated_summary}
-                  </p>
-                </div>
-
-                {/* Translated Findings */}
-                {!!translationData.translated_findings?.length && (
-                  <div style={{ marginBottom: 18 }}>
-                    <h3 style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>
-                      मुख्य निष्कर्ष (Key Findings)
-                    </h3>
-                    <ul
+                  {/* Translated Doctor Questions */}
+                  {!!translationData.translated_questions?.length && (
+                    <div
                       style={{
-                        paddingLeft: 20,
-                        margin: 0,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 6,
-                        fontSize: 13,
-                        color: '#334155'
+                        background: '#ecfdf5',
+                        border: '1px solid #a7f3d0',
+                        borderRadius: 12,
+                        padding: '14px 16px',
+                        marginBottom: 18
                       }}
                     >
-                      {translationData.translated_findings.map((f, i) => (
-                        <li key={i}>{f}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                      <h3 style={{ fontSize: 13, fontWeight: 700, color: '#065f46', margin: '0 0 8px' }}>
+                        डॉक्टर से पूछने योग्य प्रश्न (Questions to Ask Doctor)
+                      </h3>
+                      <ul
+                        style={{
+                          paddingLeft: 20,
+                          margin: 0,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: 4,
+                          fontSize: 12,
+                          color: '#047857'
+                        }}
+                      >
+                        {translationData.translated_questions.map((q, i) => (
+                          <li key={i}>{q}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
 
-                {/* Translated Doctor Questions */}
-                {!!translationData.translated_questions?.length && (
+                  {/* Translated Glossary */}
+                  {!!translationData.translated_glossary?.length && (
+                    <div style={{ marginBottom: 18 }}>
+                      <h3 style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>
+                        चिकित्सीय शब्दावली (Medical Terminology Explained)
+                      </h3>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                        {translationData.translated_glossary.map((g, i) => (
+                          <div
+                            key={i}
+                            style={{
+                              padding: '10px 14px',
+                              background: '#f8fafc',
+                              border: '1px solid #e2e8f0',
+                              borderRadius: 10
+                            }}
+                          >
+                            <strong style={{ fontSize: 13, color: '#0f172a', display: 'block' }}>{g.term}</strong>
+                            <p style={{ fontSize: 12, color: '#475569', margin: '2px 0 0' }}>{g.meaning}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Cultural Guidance & Disclaimer */}
                   <div
                     style={{
-                      background: '#ecfdf5',
-                      border: '1px solid #a7f3d0',
-                      borderRadius: 12,
-                      padding: '14px 16px',
-                      marginBottom: 18
+                      padding: '12px 14px',
+                      borderRadius: 10,
+                      background: '#fffbeb',
+                      border: '1px solid #fde68a',
+                      fontSize: 12,
+                      color: '#92400e',
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: 8
                     }}
                   >
-                    <h3 style={{ fontSize: 13, fontWeight: 700, color: '#065f46', margin: '0 0 8px' }}>
-                      डॉक्टर से पूछने योग्य प्रश्न (Questions to Ask Doctor)
-                    </h3>
-                    <ul
-                      style={{
-                        paddingLeft: 20,
-                        margin: 0,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 4,
-                        fontSize: 12,
-                        color: '#047857'
+                    <AlertCircle size={16} style={{ flexShrink: 0, marginTop: 1 }} />
+                    <div>
+                      {translationData.cultural_guidance && (
+                        <p style={{ margin: '0 0 4px', fontWeight: 600 }}>{translationData.cultural_guidance}</p>
+                      )}
+                      <span style={{ fontSize: 11 }}>
+                        {translationData.disclaimer ||
+                          'यह अनुवाद आपकी समझ के लिए है। किसी भी चिकित्सीय निर्णय के लिए अपने डॉक्टर से सलाह लें।'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Footer Translation Actions */}
+                  <div style={{ display: 'flex', gap: 10, marginTop: 18 }}>
+                    <button
+                      className="btn secondary"
+                      onClick={() => {
+                        const textToSave = `MEDORA MEDICAL TRANSLATION · ${targetLang.name}\n${translationData.translated_name}\nDate: ${doc.date}\n\nSummary:\n${translationData.translated_summary}\n\nFindings:\n${translationData.translated_findings?.join('\n')}\n\nQuestions:\n${translationData.translated_questions?.join('\n')}\n\nDisclaimer:\n${translationData.disclaimer || ''}`;
+                        download(`medora-translated-${doc.name}-${targetLang.langKey}.txt`, textToSave, 'text/plain');
+                        toast.success('Translated summary downloaded');
                       }}
                     >
-                      {translationData.translated_questions.map((q, i) => (
-                        <li key={i}>{q}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                      <Download size={15} /> Download Translation
+                    </button>
 
-                {/* Translated Glossary */}
-                {!!translationData.translated_glossary?.length && (
-                  <div style={{ marginBottom: 18 }}>
-                    <h3 style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>
-                      चिकित्सीय शब्दावली (Medical Terminology Explained)
-                    </h3>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                      {translationData.translated_glossary.map((g, i) => (
-                        <div
-                          key={i}
-                          style={{
-                            padding: '10px 14px',
-                            background: '#f8fafc',
-                            border: '1px solid #e2e8f0',
-                            borderRadius: 10
-                          }}
-                        >
-                          <strong style={{ fontSize: 13, color: '#0f172a', display: 'block' }}>{g.term}</strong>
-                          <p style={{ fontSize: 12, color: '#475569', margin: '2px 0 0' }}>{g.meaning}</p>
-                        </div>
-                      ))}
-                    </div>
+                    <button
+                      className="btn primary"
+                      onClick={() => setVoiceModalOpen(true)}
+                    >
+                      <Mic size={15} /> Discuss in Voice Chat
+                    </button>
                   </div>
-                )}
-
-                {/* Cultural Guidance & Disclaimer */}
+                </div>
+              ) : (
                 <div
                   style={{
-                    padding: '12px 14px',
-                    borderRadius: 10,
-                    background: '#fffbeb',
-                    border: '1px solid #fde68a',
-                    fontSize: 12,
-                    color: '#92400e',
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    gap: 8
+                    padding: '36px 20px',
+                    textAlign: 'center',
+                    background: '#f8fafc',
+                    border: '1px dashed #cbd5e1',
+                    borderRadius: 16
                   }}
                 >
-                  <AlertCircle size={16} style={{ flexShrink: 0, marginTop: 1 }} />
-                  <div>
-                    {translationData.cultural_guidance && (
-                      <p style={{ margin: '0 0 4px', fontWeight: 600 }}>{translationData.cultural_guidance}</p>
-                    )}
-                    <span style={{ fontSize: 11 }}>
-                      {translationData.disclaimer ||
-                        'यह अनुवाद आपकी समझ के लिए है। किसी भी चिकित्सीय निर्णय के लिए अपने डॉक्टर से सलाह लें।'}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Footer Translation Actions */}
-                <div style={{ display: 'flex', gap: 10, marginTop: 18 }}>
-                  <button
-                    className="btn secondary"
-                    onClick={() => {
-                      const textToSave = `MEDORA MEDICAL TRANSLATION · ${targetLang.name}\n${translationData.translated_name}\nDate: ${doc.date}\n\nSummary:\n${translationData.translated_summary}\n\nFindings:\n${translationData.translated_findings?.join('\n')}\n\nQuestions:\n${translationData.translated_questions?.join('\n')}\n\nDisclaimer:\n${translationData.disclaimer || ''}`;
-                      download(`medora-translated-${doc.name}-${targetLang.langKey}.txt`, textToSave, 'text/plain');
-                      toast.success('Translated summary downloaded');
-                    }}
-                  >
-                    <Download size={15} /> Download Translation
-                  </button>
-
+                  <Languages size={32} color="#94a3b8" style={{ margin: '0 auto 10px' }} />
+                  <h4 style={{ fontSize: 15, fontWeight: 600, color: '#334155', margin: '0 0 6px' }}>
+                    Ready to translate {doc.name}
+                  </h4>
+                  <p style={{ fontSize: 12, color: '#64748b', maxWidth: 440, margin: '0 auto 16px' }}>
+                    Click below to generate a clinically accurate, plain-language translation in {targetLang.name} with audio
+                    pronunciation and glossaries.
+                  </p>
                   <button
                     className="btn primary"
-                    onClick={() => setVoiceModalOpen(true)}
+                    disabled={translating}
+                    onClick={() => void handleTranslate(targetLang)}
                   >
-                    <Mic size={15} /> Discuss in Voice Chat
+                    <Languages size={15} /> {translating ? 'Generating Translation…' : `Translate to ${targetLang.name}`}
                   </button>
                 </div>
+              )}
+            </div>
+          )}
+
+          {/* DOCTOR QUESTIONS TAB */}
+          {tab === 'Doctor questions' && (
+            <>
+              <p className="section-intro">Make the conversation yours. These questions are saved with your document.</p>
+              <div className="question-list">
+                {questions.map((q, i) => (
+                  <div className="question-card" key={i}>
+                    <span>{String(i + 1).padStart(2, '0')}</span>
+                    <p>{q}</p>
+                    <button
+                      className="icon-button"
+                      aria-label={`Remove question ${i + 1}`}
+                      onClick={() => setQuestions(questions.filter((_, n) => n !== i))}
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
+                ))}
               </div>
-            ) : (
-              <div
-                style={{
-                  padding: '36px 20px',
-                  textAlign: 'center',
-                  background: '#f8fafc',
-                  border: '1px dashed #cbd5e1',
-                  borderRadius: 16
+              <form
+                className="inline-entry"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (!question.trim()) return;
+                  setQuestions([...questions, question.trim()]);
+                  setQuestion('');
                 }}
               >
-                <Languages size={32} color="#94a3b8" style={{ margin: '0 auto 10px' }} />
-                <h4 style={{ fontSize: 15, fontWeight: 600, color: '#334155', margin: '0 0 6px' }}>
-                  Ready to translate {doc.name}
-                </h4>
-                <p style={{ fontSize: 12, color: '#64748b', maxWidth: 440, margin: '0 auto 16px' }}>
-                  Click below to generate a clinically accurate, plain-language translation in {targetLang.name} with audio
-                  pronunciation and glossaries.
-                </p>
-                <button
-                  className="btn primary"
-                  disabled={translating}
-                  onClick={() => void handleTranslate(targetLang)}
-                >
-                  <Languages size={15} /> {translating ? 'Generating Translation…' : `Translate to ${targetLang.name}`}
+                <input
+                  aria-label="Add a doctor question"
+                  placeholder="Add a question for your clinician…"
+                  value={question}
+                  onChange={(e) => setQuestion(e.target.value)}
+                  maxLength={300}
+                />
+                <button className="btn primary" disabled={!question.trim()}>
+                  <Plus size={16} />
+                  Add
                 </button>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* DOCTOR QUESTIONS TAB */}
-        {tab === 'Doctor questions' && (
-          <>
-            <p className="section-intro">Make the conversation yours. These questions are saved with your document.</p>
-            <div className="question-list">
-              {questions.map((q, i) => (
-                <div className="question-card" key={i}>
-                  <span>{String(i + 1).padStart(2, '0')}</span>
-                  <p>{q}</p>
-                  <button
-                    className="icon-button"
-                    aria-label={`Remove question ${i + 1}`}
-                    onClick={() => setQuestions(questions.filter((_, n) => n !== i))}
-                  >
-                    <X size={16} />
-                  </button>
-                </div>
-              ))}
-            </div>
-            <form
-              className="inline-entry"
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (!question.trim()) return;
-                setQuestions([...questions, question.trim()]);
-                setQuestion('');
-              }}
-            >
-              <input
-                aria-label="Add a doctor question"
-                placeholder="Add a question for your clinician…"
-                value={question}
-                onChange={(e) => setQuestion(e.target.value)}
-                maxLength={300}
-              />
-              <button className="btn primary" disabled={!question.trim()}>
-                <Plus size={16} />
-                Add
+              </form>
+              <button
+                className="btn secondary"
+                onClick={() => {
+                  const title = 'Review ' + doc.name + ' with my clinician';
+                  if (ctx.data.tasks.some((t) => t.title === title)) {
+                    toast.info('This review is already in your care journey');
+                    return;
+                  }
+                  ctx.update((d) => ({
+                    ...d,
+                    tasks: [
+                      ...d.tasks,
+                      { id: uid(), title, detail: questions.join(' '), date: dateOffset(3), done: false }
+                    ]
+                  }));
+                  toast.success('Review added to your care journey');
+                }}
+              >
+                <ClipboardList size={16} />
+                Add review to care journey
               </button>
-            </form>
-            <button
-              className="btn secondary"
-              onClick={() => {
-                const title = 'Review ' + doc.name + ' with my clinician';
-                if (ctx.data.tasks.some((t) => t.title === title)) {
-                  toast.info('This review is already in your care journey');
-                  return;
-                }
-                ctx.update((d) => ({
-                  ...d,
-                  tasks: [
-                    ...d.tasks,
-                    { id: uid(), title, detail: questions.join(' '), date: dateOffset(3), done: false }
-                  ]
-                }));
-                toast.success('Review added to your care journey');
-              }}
-            >
-              <ClipboardList size={16} />
-              Add review to care journey
-            </button>
-          </>
-        )}
+            </>
+          )}
 
-        {/* COMPARE TAB */}
-        {tab === 'Compare' && (
-          <>
-            {ctx.data.documents.length > 1 ? (
-              <>
-                <label>
-                  Compare with
-                  <Pick
-                    label="Comparison document"
-                    value={compared?.name || ''}
-                    onChange={(v) => {
-                      setCompareId(ctx.data.documents.find((d) => d.name === v)?.id || '');
-                      setComparison('');
-                    }}
-                    options={ctx.data.documents.filter((d) => d.id !== doc.id).map((d) => d.name)}
-                  />
-                </label>
-                {compared && (
-                  <>
-                    <div className="document-compare-grid">
-                      {[doc, compared].map((d, i) => (
-                        <section className="comparison-card" key={d.id}>
-                          <span className="feature-kicker">{i === 0 ? 'CURRENT DOCUMENT' : 'COMPARISON DOCUMENT'}</span>
-                          <FileText size={23} />
-                          <h3>{d.name}</h3>
-                          <p>
-                            {niceDate(d.date)} · {d.type}
+          {/* COMPARE TAB */}
+          {tab === 'Compare' && (
+            <>
+              {ctx.data.documents.length > 1 ? (
+                <>
+                  <label>
+                    Compare with
+                    <Pick
+                      label="Comparison document"
+                      value={compared?.name || ''}
+                      onChange={(v) => {
+                        setCompareId(ctx.data.documents.find((d) => d.name === v)?.id || '');
+                        setComparison('');
+                      }}
+                      options={ctx.data.documents.filter((d) => d.id !== doc.id).map((d) => d.name)}
+                    />
+                  </label>
+                  {compared && (
+                    <>
+                      <div className="document-compare-grid">
+                        {[doc, compared].map((d, i) => (
+                          <section className="comparison-card" key={d.id}>
+                            <span className="feature-kicker">{i === 0 ? 'CURRENT DOCUMENT' : 'COMPARISON DOCUMENT'}</span>
+                            <FileText size={23} />
+                            <h3>{d.name}</h3>
+                            <p>
+                              {niceDate(d.date)} · {d.type}
+                            </p>
+                            <div>{d.summary}</div>
+                          </section>
+                        ))}
+                      </div>
+                      {API_MODE && (
+                        <>
+                          <button
+                            className="btn primary"
+                            disabled={!!busy || !consent || !analysed || compared.analysisStatus !== 'analysed'}
+                            onClick={() =>
+                              void run('Comparing documents…', async () => {
+                                await ctx.flush?.();
+                                const result = await api.compare(doc.id, compared.id, ctx.ownerId);
+                                setComparison(result.comparison);
+                              })
+                            }
+                          >
+                            <GitCompareArrows size={16} />
+                            Compare with AI
+                          </button>
+                          <p className="section-intro">
+                            Analyse both uploaded documents first and enable AI processing above.
                           </p>
-                          <div>{d.summary}</div>
-                        </section>
-                      ))}
-                    </div>
-                    {API_MODE && (
-                      <>
-                        <button
-                          className="btn primary"
-                          disabled={!!busy || !consent || !analysed || compared.analysisStatus !== 'analysed'}
-                          onClick={() =>
-                            void run('Comparing documents…', async () => {
-                              await ctx.flush?.();
-                              const result = await api.compare(doc.id, compared.id, ctx.ownerId);
-                              setComparison(result.comparison);
-                            })
-                          }
-                        >
-                          <GitCompareArrows size={16} />
-                          Compare with AI
-                        </button>
-                        <p className="section-intro">
-                          Analyse both uploaded documents first and enable AI processing above.
+                          {comparison && (
+                            <div className="summary-surface" style={{ whiteSpace: 'pre-wrap' }}>
+                              {comparison}
+                            </div>
+                          )}
+                        </>
+                      )}
+                      <div className="comparison-note">
+                        <GitCompareArrows size={19} />
+                        <p>
+                          {API_MODE
+                            ? 'Review differences, dates and units with your clinician.'
+                            : 'Compare the recorded next steps with your clinician. This demo does not infer clinical changes.'}
                         </p>
-                        {comparison && (
-                          <div className="summary-surface" style={{ whiteSpace: 'pre-wrap' }}>
-                            {comparison}
-                          </div>
-                        )}
-                      </>
-                    )}
-                    <div className="comparison-note">
-                      <GitCompareArrows size={19} />
-                      <p>
-                        {API_MODE
-                          ? 'Review differences, dates and units with your clinician.'
-                          : 'Compare the recorded next steps with your clinician. This demo does not infer clinical changes.'}
-                      </p>
-                    </div>
-                  </>
-                )}
-              </>
-            ) : (
-              <EmptyState
-                title="Add another document to compare"
-                text="A second record lets you review documents side by side."
-              />
-            )}
-          </>
-        )}
-      </TabView>
+                      </div>
+                    </>
+                  )}
+                </>
+              ) : (
+                <EmptyState
+                  title="Add another document to compare"
+                  text="A second record lets you review documents side by side."
+                />
+              )}
+            </>
+          )}
+        </TabView>
       )}
 
       <div className="document-review-actions">
@@ -1304,7 +1304,7 @@ export function DocumentReview({ ctx, document: doc }: { ctx: AppContext; docume
                 label="Document recipient"
                 value={recipient}
                 onChange={setRecipient}
-                options={['Dr Sarah Khan', 'Westminster Health Clinic', ...ctx.data.family.map((f) => f.name)]}
+                options={['Dr. Rajesh Sharma', 'Apollo City Clinic', ...ctx.data.family.map((f) => f.name)]}
               />
             </label>
             <label>
@@ -1340,7 +1340,7 @@ export function DocumentWorkspace({ ctx }: { ctx: AppContext }) {
         .then((c) => {
           if (active) setLimit(c.max_upload_bytes);
         })
-        .catch(() => {});
+        .catch(() => { });
     return () => {
       active = false;
     };

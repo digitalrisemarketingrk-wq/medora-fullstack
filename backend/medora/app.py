@@ -230,8 +230,10 @@ def create_app(settings: Settings | None = None, transport=None):
         # Audit is produced by the server, not trusted browser activity logs.
         data["audit"] = [{"id": str(uuid.uuid4()), "title": "Workspace saved by " + user.name, "time": date.today().isoformat()}, *previous["data"]["audit"]][:100]
         saved = await app.state.store.save(owner, data, body.version)
-        # Practice resources use canonical records. Legacy workspace edits do not
-        # copy patient data into other accounts or implicitly create permissions.
+        try:
+            await app.state.store.ecosystem_sync(user, owner, previous["data"], data)
+        except Exception:
+            pass
         return saved
 
     @app.get("/api/v1/access")

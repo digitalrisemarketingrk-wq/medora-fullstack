@@ -500,7 +500,7 @@ export function VoiceChatDialog({ ctx, open, onClose, initialQuery }: VoiceChatD
     const list = [
       { text: selectedLang.samplePrompt, icon: Scan, iconColor: '#0d9488', iconBg: '#e5f7f2' },
       { text: 'Explain my cholesterol and glucose test results', icon: FlaskConical, iconColor: '#245be8', iconBg: '#eaf1ff' },
-      { text: 'What did Dr Sarah Khan advise in my last visit?', icon: Stethoscope, iconColor: '#7c3aed', iconBg: '#efeaff' },
+      { text: 'What did Dr. Rajesh Sharma advise in my last visit?', icon: Stethoscope, iconColor: '#7c3aed', iconBg: '#efeaff' },
       { text: 'Are there any interactions with my active prescriptions?', icon: Pill, iconColor: '#c45275', iconBg: '#ffedf2' }
     ];
     const seen = new Set<string>();

@@ -52,17 +52,14 @@ const SERVICE_PRESETS: { label: string; desc: string; category: BillingLineItem[
 ];
 
 const CURRENCIES = [
-  { code: 'INR', symbol: '₹', name: 'Indian Rupee' },
-  { code: 'GBP', symbol: '£', name: 'British Pound' },
-  { code: 'USD', symbol: '$', name: 'US Dollar' },
-  { code: 'EUR', symbol: '€', name: 'Euro' }
+  { code: 'INR', symbol: '₹', name: 'Indian Rupee (INR)' }
 ];
 
 const TAX_RATES = [
-  { label: 'None (0%)', value: 0 },
-  { label: 'Standard (5%)', value: 0.05 },
-  { label: 'Healthcare GST (12%)', value: 0.12 },
-  { label: 'Services VAT (18%)', value: 0.18 }
+  { label: 'Exempt / None (0%)', value: 0 },
+  { label: 'Healthcare GST (5%)', value: 0.05 },
+  { label: 'Diagnostics GST (12%)', value: 0.12 },
+  { label: 'Pharmacy GST (18%)', value: 0.18 }
 ];
 
 export type PracticeBillingComposerProps = {

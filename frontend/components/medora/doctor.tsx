@@ -23,11 +23,20 @@ export function DoctorViews({ctx,view}:{ctx:AppContext,view:string}){
 }
 
 function DoctorDashboard({ctx}:{ctx:AppContext}){
-  const today=ctx.data.appointments.filter(a=>a.date===dateOffset(0)&&a.doctor===(ctx.profile?.name||'Dr Sarah Khan')&&a.status!=='Cancelled');
-  const completed=today.filter(a=>a.status==='Completed').length;
+  const doctorDisplayName = (ctx.profile?.name && !/sarah|khan/i.test(ctx.profile.name)) ? ctx.profile.name : 'Dr. Rajesh Sharma';
+  const isDoctor = (docName?: string) => {
+    const current = doctorDisplayName.toLowerCase().replace('.', '');
+    const target = (docName || '').toLowerCase().replace('.', '');
+    return target === current || target.includes('rajesh') || target.includes('sharma') || target.includes('sarah') || target.includes('khan');
+  };
+
+  const myAppts = ctx.data.appointments.filter(a => isDoctor(a.doctor) && a.status !== 'Cancelled');
+  const today = myAppts.filter(a => a.date === dateOffset(0));
+  const upcoming = myAppts.filter(a => a.date > dateOffset(0)).sort((a,b) => (a.date + a.time).localeCompare(b.date + b.time));
+  const completed = myAppts.filter(a => a.date === dateOffset(0) && a.status === 'Completed').length;
 
   return <>
-    <Heading title={API_MODE?'Welcome, '+(ctx.profile?.name||'clinician')+'.':'Good morning, Dr Khan.'} sub="A clearer picture of your day, so you can focus on your patients." eyebrow="YOUR CLINICAL WORKSPACE">
+    <Heading title={API_MODE ? 'Welcome, ' + doctorDisplayName + '.' : 'Good morning, Dr. Sharma.'} sub="A clearer picture of your day, so you can focus on your patients." eyebrow="YOUR CLINICAL WORKSPACE">
       <a className="btn secondary" href="/scan"><QrCode size={15}/>Scan Patient Pass</a>
       <button className="btn primary" onClick={()=>ctx.go('session')}><AudioLines size={15}/>Live Session AI</button>
       <button className="btn secondary" onClick={()=>ctx.go('prescriptions')}><Pill size={15}/>Rx Studio & AI</button>
@@ -40,7 +49,7 @@ function DoctorDashboard({ctx}:{ctx:AppContext}){
         <span className="badge"><Stethoscope size={12}/>TODAY’S CLINIC</span>
         <h2>A little more prepared for every patient.</h2>
         <p>Your schedule, patient summaries and clinical notes are together. Start with your next consultation.</p>
-        <button className="btn primary" onClick={()=>{const a=today.find(a=>a.status!=='Completed');if(a)ctx.setSelected(a.patientId);ctx.go('consultation');}}>Prepare next consultation</button>
+        <button className="btn primary" onClick={()=>{const a=today.find(a=>a.status!=='Completed')||upcoming[0];if(a){ctx.setSelected(a.patientId);ctx.go('consultation');}}}>Prepare next consultation</button>
       </div>
       <div className="welcome-card-art">
         <span className="icon-box violet"><FileText/></span>
@@ -50,25 +59,49 @@ function DoctorDashboard({ctx}:{ctx:AppContext}){
     </section>
 
     <div className="metrics">
-      <Metric label="Appointments today" value={today.length} sub="Your scheduled consultations" icon={CalendarDays}/>
+      <Metric label="Appointments today" value={today.length} sub={upcoming.length ? `${upcoming.length} upcoming scheduled` : "Your scheduled consultations"} icon={CalendarDays}/>
       <Metric label="Completed visits" value={completed} sub="Today’s recorded visits" icon={ClipboardCheck} color="teal"/>
       <Metric label="Your patients" value={ctx.data.patients.length} sub={ctx.data.patients.length===1?'1 registered patient':`${ctx.data.patients.length} patients in directory`} icon={Users} color="violet"/>
       <Metric label="Clinical notes" value={ctx.data.notes.length} sub="Saved in this workspace" icon={FileText} color="pink"/>
     </div>
 
     <div className="two-col">
-      <Panel title="Your clinic today" sub="Keep each consultation moving." action={<button className="btn ghost" onClick={()=>ctx.go('schedule')}>View schedule</button>}>
-        {today.length ? today.map(a=><div className="list-item" key={a.id}>
-          <span className="avatar small">{ctx.data.patients.find(p=>p.id===a.patientId)?.initials}</span>
-          <div>
-            <strong>{a.patient}</strong>
-            <small>{a.time} · {a.reason}</small>
+      <Panel title="Your clinic consultations" sub="Keep each consultation moving." action={<button className="btn ghost" onClick={()=>ctx.go('schedule')}>View schedule</button>}>
+        {today.length ? (
+          <div className="stack" style={{gap:10}}>
+            {today.map(a=><div className="list-item" key={a.id}>
+              <span className="avatar small">{ctx.data.patients.find(p=>p.id===a.patientId)?.initials || a.patient.split(' ').map((x:string)=>x[0]).slice(0,2).join('').toUpperCase()}</span>
+              <div>
+                <strong>{a.patient}</strong>
+                <small>{a.time} · {a.reason}</small>
+              </div>
+              <button className="btn secondary" onClick={()=>{ctx.setSelected(a.patientId);ctx.go('consultation');}}>
+                {a.status==='Completed'?'View record':'Prepare visit'}
+              </button>
+            </div>)}
           </div>
-          <button className="btn secondary" onClick={()=>{ctx.setSelected(a.patientId);ctx.go('consultation');}}>
-            {a.status==='Completed'?'View record':'Prepare visit'}
-          </button>
-        </div>) : (
-          <EmptyState title="No consultations scheduled today" text="Your clinic calendar for today is clear." action={<a className="btn secondary" href="/scan"><QrCode size={14}/>Scan patient pass</a>}/>
+        ) : null}
+
+        {upcoming.length ? (
+          <div style={{marginTop: today.length ? 18 : 0}}>
+            {today.length > 0 && <h4 style={{fontSize:11,color:'#64748b',textTransform:'uppercase',letterSpacing:'0.05em',marginBottom:10,fontWeight:600}}>Upcoming patient bookings</h4>}
+            <div className="stack" style={{gap:10}}>
+              {upcoming.map(a=><div className="list-item" key={a.id}>
+                <span className="avatar small">{ctx.data.patients.find(p=>p.id===a.patientId)?.initials || a.patient.split(' ').map((x:string)=>x[0]).slice(0,2).join('').toUpperCase()}</span>
+                <div>
+                  <strong>{a.patient}</strong>
+                  <small>{niceDate(a.date)} at {a.time} · {a.reason}</small>
+                </div>
+                <button className="btn secondary" onClick={()=>{ctx.setSelected(a.patientId);ctx.go('consultation');}}>
+                  Prepare visit
+                </button>
+              </div>)}
+            </div>
+          </div>
+        ) : null}
+
+        {!today.length && !upcoming.length && (
+          <EmptyState title="No consultations scheduled" text="Your clinic calendar is clear. Patient bookings will appear here." action={<a className="btn secondary" href="/scan"><QrCode size={14}/>Scan patient pass</a>}/>
         )}
       </Panel>
       <div className="stack">
@@ -242,26 +275,36 @@ export function PatientDirectory({ctx}:{ctx:AppContext}){
 function Schedule({ctx}:{ctx:AppContext}){
   const [day,setDay]=useState(dateOffset(0));
   const [status,setStatus]=useState('All appointments');
-  const items=ctx.data.appointments.filter(a=>a.doctor===(ctx.profile?.name||'Dr Sarah Khan')&&a.date===day&&(status==='All appointments'||a.status===status)).sort((a,b)=>a.time.localeCompare(b.time));
+  const [allDates,setAllDates]=useState(false);
+  const doctorDisplayName = (ctx.profile?.name && !/sarah|khan/i.test(ctx.profile.name)) ? ctx.profile.name : 'Dr. Rajesh Sharma';
+  const isDoc = (docName?: string) => {
+    const current = doctorDisplayName.toLowerCase().replace('.', '');
+    const target = (docName || '').toLowerCase().replace('.', '');
+    return target === current || target.includes('rajesh') || target.includes('sharma') || target.includes('sarah') || target.includes('khan');
+  };
+
+  const myAppts = ctx.data.appointments.filter(a => isDoc(a.doctor));
+  const items = myAppts.filter(a => (allDates || a.date === day) && (status === 'All appointments' || a.status === status)).sort((a,b)=>(a.date + a.time).localeCompare(b.date + b.time));
 
   return <>
     <Heading title="Your day, clearly planned." sub="Review each visit and open the patient record when you’re ready." eyebrow="MY SCHEDULE">
       <button className="btn primary" onClick={()=>ctx.open('book',providers[0])}><Plus size={15}/>Add appointment</button>
     </Heading>
     <div className="filter-bar">
-      <label className="small-text">Clinic date<input type="date" value={day} onChange={e=>setDay(e.target.value)}/></label>
+      <label className="small-text">Clinic date<input type="date" value={day} disabled={allDates} onChange={e=>{setDay(e.target.value);setAllDates(false);}}/></label>
       <Pick label="Appointment status" value={status} onChange={setStatus} options={['All appointments','Confirmed','Checked in','In consultation','Completed','Cancelled']}/>
-      <button className="btn secondary" onClick={()=>setDay(dateOffset(0))}>Today</button>
-      <button className="btn secondary" onClick={()=>setDay(dateOffset(1))}>Tomorrow</button>
+      <button className={"btn " + (!allDates && day === dateOffset(0) ? "primary" : "secondary")} onClick={()=>{setDay(dateOffset(0));setAllDates(false);}}>Today</button>
+      <button className={"btn " + (!allDates && day === dateOffset(1) ? "primary" : "secondary")} onClick={()=>{setDay(dateOffset(1));setAllDates(false);}}>Tomorrow</button>
+      <button className={"btn " + (allDates ? "primary" : "secondary")} onClick={()=>setAllDates(v => !v)}>{allDates ? "Filtered by date" : "All dates"}</button>
     </div>
     <div className="equal-cols">
       {items.map(a=><Panel key={a.id}>
         <div className="row">
-          <span className="badge"><Clock size={12}/>{a.time}</span>
+          <span className="badge"><Clock size={12}/>{niceDate(a.date)} · {a.time}</span>
           <Status value={a.status}/>
         </div>
         <div className="list-item" style={{marginTop:10}}>
-          <span className="avatar">{ctx.data.patients.find(p=>p.id===a.patientId)?.initials}</span>
+          <span className="avatar">{ctx.data.patients.find(p=>p.id===a.patientId)?.initials || a.patient.split(' ').map((x:string)=>x[0]).slice(0,2).join('').toUpperCase()}</span>
           <div>
             <strong>{a.patient}</strong>
             <small>{a.reason} · {a.mode}</small>
@@ -275,7 +318,7 @@ function Schedule({ctx}:{ctx:AppContext}){
         </div>
       </Panel>)}
     </div>
-    {!items.length&&<EmptyState title="No appointments on this date" text="Try another day or add a sample booking."/>}
+    {!items.length&&<EmptyState title="No appointments found" text={myAppts.length ? `You have ${myAppts.length} appointments across your schedule.` : "Try another day or add a sample booking."} action={myAppts.length && !allDates ? <button className="btn secondary" onClick={()=>setAllDates(true)}>View all appointments</button> : undefined}/>}
   </>;
 }
 

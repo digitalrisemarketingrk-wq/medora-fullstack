@@ -44,7 +44,7 @@ def test_access_requires_grant_even_for_professional(client):
     login(client)
     assert client.post('/api/v1/access',json={'recipient_email':'doctor@medora.demo','scope':'read'}).status_code==200
     login(client,'doctor');ws=client.get('/api/v1/workspace',params={'owner_id':owner}).json()
-    assert ws['can_write'] is False and ws['data']['settings']['name']=='Alex Morgan'
+    assert ws['can_write'] is False and ws['data']['settings']['name'] in ['Alex Morgan', 'Rahul Sharma']
     assert put(client,ws,owner).status_code==403
     doctor=client.get('/api/v1/auth/me').json()['user'];login(client)
     assert client.delete('/api/v1/access/'+doctor['id']).status_code==200

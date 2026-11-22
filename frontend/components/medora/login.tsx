@@ -109,9 +109,15 @@ export function Login() {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   useEffect(() => {
-    const r = new URLSearchParams(window.location.search).get('role');
+    const params = new URLSearchParams(window.location.search);
+    const r = params.get('role');
+    const auto = params.get('auto');
+    const targetRole: Role = (r === 'doctor' || r === 'hospital' || r === 'patient') ? r : 'patient';
     if (r === 'doctor' || r === 'hospital' || r === 'patient') {
-      setRole(r);
+      setRole(targetRole);
+    }
+    if (auto === 'true' || auto === '1') {
+      void enterDemoForRole(targetRole);
     }
     if (API_MODE) {
       void api

@@ -49,9 +49,35 @@ class Store:
                 if "expires_at" not in [r[1] for r in db.execute("PRAGMA table_info(grants)")]:
                     db.execute("ALTER TABLE grants ADD COLUMN expires_at INTEGER")
             if settings.demo_accounts_enabled:
-                for role, name in [("patient", "Alex Morgan"), ("doctor", "Dr Sarah Khan"), ("hospital", "Riverside Medical Centre")]:
-                    if not self.local_profile(email=f"{role}@medora.demo"):
+                try:
+                    from seed_patients import get_complete_seed
+                    seed_data = get_complete_seed()
+                except Exception:
+                    seed_data = None
+
+                for role, name in [("patient", "Rahul Sharma"), ("doctor", "Dr. Rajesh Sharma"), ("hospital", "Apollo City Clinic")]:
+                    p = self.local_profile(email=f"{role}@medora.demo")
+                    if not p:
                         self.local_signup(f"{role}@medora.demo", "Medora123!", name, role)
+                        p = self.local_profile(email=f"{role}@medora.demo")
+                    elif p.get("name") in {"Dr Sarah Khan", "Alex Morgan", "Riverside Medical Centre"}:
+                        with self.db() as db:
+                            db.execute("UPDATE profiles SET name = ? WHERE email = ?", (name, f"{role}@medora.demo"))
+
+                    if seed_data and p:
+                        with self.db() as db:
+                            row = db.execute("SELECT data FROM workspaces WHERE owner_id=?", (p["id"],)).fetchone()
+                            if row:
+                                try:
+                                    existing = json.loads(row["data"])
+                                    if len(existing.get("patients", [])) < 5 or len(existing.get("notes", [])) < 5:
+                                        ws_data = dict(seed_data)
+                                        ws_settings = dict(seed_data["settings"])
+                                        ws_settings["name"] = name
+                                        ws_data["settings"] = ws_settings
+                                        db.execute("UPDATE workspaces SET data=? WHERE owner_id=?", (json.dumps(ws_data), p["id"]))
+                                except Exception:
+                                    pass
 
     @contextmanager
     def db(self):
@@ -312,20 +338,34 @@ class Store:
             profiles = await self.all_profiles()
 
             def find_profile(name_or_email: str, role: str | None = None) -> Profile | None:
-                query = (name_or_email or "").strip().lower()
+                query = (name_or_email or "").strip().lower().replace(".", "")
                 if not query:
                     return None
                 for p in profiles:
                     if role and p.role != role:
                         continue
-                    if p.email.lower() == query:
+                    p_name = p.name.lower().replace(".", "")
+                    if p.email.lower() == query or query in p_name or p_name in query:
                         return p
-                    if query in p.name.lower() or p.name.lower() in query:
-                        return p
+                if role == "doctor":
+                    for p in profiles:
+                        if p.role == "doctor" and any(k in query for k in ["sharma", "rajesh", "sarah", "khan"]):
+                            return p
+                if role == "hospital":
+                    for p in profiles:
+                        if p.role == "hospital" and any(k in query for k in ["apollo", "riverside", "clinic", "hospital"]):
+                            return p
                 return None
 
             # 1. Sync appointments to Doctor, Hospital, and Patient
             curr_appts = current.get("appointments", [])
+            prev_appts = previous.get("appointments", [])
+            curr_appt_ids = {a.get("id") for a in curr_appts if a.get("id")}
+            deleted_ids = {a.get("id") for a in prev_appts if a.get("id") and a.get("id") not in curr_appt_ids}
+
+            # Group targets: target_id -> {"role": role, "appts": [...], "deleted_ids": set(), "patients": [...]}
+            target_groups = {}
+
             for appt in curr_appts:
                 doc_prof = find_profile(appt.get("doctor", ""), "doctor")
                 hosp_prof = find_profile(appt.get("provider", ""), "hospital")
@@ -341,35 +381,47 @@ class Store:
                 if pat_prof and pat_prof.id != owner_id:
                     targets.append((pat_prof.id, "patient"))
 
-                for target_id, target_role in targets:
-                    try:
-                        target_ws = await self.workspace(target_id)
-                        t_data = target_ws["data"]
-                        t_appts = t_data.setdefault("appointments", [])
+                for tid, trole in targets:
+                    grp = target_groups.setdefault(tid, {"role": trole, "appts": [], "deleted_ids": set(deleted_ids), "patients": []})
+                    grp["appts"].append(appt)
+                    if pat_prof:
+                        grp["patients"].append(pat_prof)
+
+            for target_id, grp in target_groups.items():
+                try:
+                    target_ws = await self.workspace(target_id)
+                    t_data = target_ws["data"]
+                    t_appts = t_data.setdefault("appointments", [])
+                    t_del = grp["deleted_ids"]
+                    if t_del:
+                        t_appts[:] = [a for a in t_appts if a.get("id") not in t_del]
+
+                    for appt in grp["appts"]:
                         appt_id = appt.get("id")
-                        idx = next((i for i, a in enumerate(t_appts) if a.get("id") == appt_id or (a.get("date") == appt.get("date") and a.get("time") == appt.get("time") and a.get("patient") == appt.get("patient"))), -1)
+                        idx = next((i for i, a in enumerate(t_appts) if (appt_id and a.get("id") == appt_id) or (a.get("date") == appt.get("date") and a.get("time") == appt.get("time") and a.get("patient") == appt.get("patient"))), -1)
                         if idx >= 0:
                             t_appts[idx] = {**t_appts[idx], **appt}
                         else:
                             t_appts.append(appt)
 
-                        if target_role in ["doctor", "hospital"] and pat_prof:
-                            t_patients = t_data.setdefault("patients", [])
+                    if grp["role"] in ["doctor", "hospital"]:
+                        t_patients = t_data.setdefault("patients", [])
+                        for pat_prof in grp["patients"]:
                             if not any(p.get("name", "").lower() == pat_prof.name.lower() or p.get("email", "").lower() == pat_prof.email.lower() for p in t_patients):
                                 initials = "".join(w[0] for w in pat_prof.name.split())[:2].upper() or "PT"
                                 t_patients.append({
-                                    "id": str(uuid.uuid4())[:8],
+                                    "id": "p1" if pat_prof.email == "patient@medora.demo" else str(uuid.uuid4())[:8],
                                     "name": pat_prof.name,
-                                    "age": 30,
+                                    "age": 34,
                                     "initials": initials,
-                                    "condition": appt.get("reason", "Consultation"),
-                                    "lastVisit": appt.get("date", date.today().isoformat()),
+                                    "condition": "Consultation booking",
+                                    "lastVisit": date.today().isoformat(),
                                     "email": pat_prof.email,
                                     "risk": "Low"
                                 })
-                        await self.save(target_id, t_data, target_ws["version"])
-                    except Exception:
-                        pass
+                    await self.save(target_id, t_data, target_ws["version"])
+                except Exception:
+                    pass
 
                 # Directory/appointment synchronization never creates consent grants.
 

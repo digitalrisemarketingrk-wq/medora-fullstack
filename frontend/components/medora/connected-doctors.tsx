@@ -163,7 +163,8 @@ export function ConnectedDoctorsView({ ctx }: { ctx: AppContext }) {
     if (!API_MODE) ctx.update((prev) => {
       const newTeam = { ...(prev.team || {}) };
       newTeam[safeDoc.name] = false;
-      if (safeDoc.name.includes('Sarah Khan')) {
+      if (safeDoc.name.includes('Sharma') || safeDoc.name.includes('Sarah Khan')) {
+        newTeam['Dr. Rajesh Sharma'] = false;
         newTeam['Dr Sarah Khan'] = false;
       }
 
