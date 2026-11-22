@@ -1,6 +1,6 @@
 'use client';
 
-import { API_BASE } from './medora-api';
+import { API_BASE, getApiBase } from './medora-api';
 
 // High-fidelity multi-lingual Speech & Voice Activity Detection for Medora
 
@@ -226,7 +226,11 @@ export class SpeechEngine {
 
     // 2. Cloud Mode: Stream high-definition backend audio (Gemini 3.8 Flash TTS or Edge-TTS)
     try {
-      const response = await fetch(API_BASE + '/ai/speak', {
+      const base = getApiBase();
+      const speakUrl = base.startsWith('http')
+        ? new URL('ai/speak', base.endsWith('/') ? base : `${base}/`).toString()
+        : base + '/ai/speak';
+      const response = await fetch(speakUrl, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },

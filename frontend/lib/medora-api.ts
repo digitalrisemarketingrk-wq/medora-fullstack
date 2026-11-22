@@ -4,6 +4,12 @@ import type { DemoData, Doc, Role } from './medora-demo';
 
 // Only these public, non-secret settings enter the browser bundle.
 export const API_MODE = process.env.NEXT_PUBLIC_DATA_MODE !== 'demo';
+export function getApiBase(): string {
+  if (typeof window === 'undefined' && process.env.BACKEND_URL) {
+    return new URL('api/v1', process.env.BACKEND_URL.endsWith('/') ? process.env.BACKEND_URL : `${process.env.BACKEND_URL}/`).toString().replace(/\/$/, '');
+  }
+  return (process.env.NEXT_PUBLIC_API_BASE_URL || '/api/v1').replace(/\/$/, '');
+}
 export const API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL || '/api/v1').replace(/\/$/, '');
 export type Profile = { id: string; name: string; email: string; role: Role };
 export type WorkspaceSnapshot = { owner_id: string; version: number; data: DemoData; can_write?: boolean };
@@ -199,11 +205,18 @@ function validationErrors(detail: unknown): Record<string,string> {
 let refreshPending: Promise<Response> | null = null;
 export async function request<T>(path: string, init: RequestInit = {}, retry = true): Promise<T> {
   let response: Response;
+  const base = getApiBase();
+  const url = base.startsWith('http')
+    ? new URL(path.startsWith('/') ? path.slice(1) : path, base.endsWith('/') ? base : `${base}/`).toString()
+    : base + path;
   try {
-    response = await fetch(API_BASE + path, { credentials: 'include', cache: 'no-store', ...init, headers: { ...(init.body instanceof FormData ? {} : { 'Content-Type': 'application/json' }), ...init.headers } });
+    response = await fetch(url, { credentials: 'include', cache: 'no-store', ...init, headers: { ...(init.body instanceof FormData ? {} : { 'Content-Type': 'application/json' }), ...init.headers } });
   } catch { throw new ApiError(0, 'Cannot reach Medora. Check your connection and try again.'); }
   if (response.status === 401 && retry && !['/auth/login', '/auth/signup', '/auth/refresh'].includes(path)) {
-    refreshPending ??= fetch(API_BASE + '/auth/refresh', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: '{}' }).finally(() => { refreshPending = null; });
+    const refreshUrl = base.startsWith('http')
+      ? new URL('auth/refresh', base.endsWith('/') ? base : `${base}/`).toString()
+      : base + '/auth/refresh';
+    refreshPending ??= fetch(refreshUrl, { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: '{}' }).finally(() => { refreshPending = null; });
     if ((await refreshPending).ok) return request<T>(path, init, false);
   }
   const body: unknown = await response.json().catch(() => null);
@@ -286,7 +299,11 @@ export const api = {
     }),
   transcribe: (file: File) => { const body = new FormData(); body.append('file', file); return request<{ transcript: string }>('/ai/transcribe?consent=true', { method: 'POST', body }); },
   speak: async (text: string, language: string = 'en', gender: 'female' | 'male' = 'female', engine: 'auto' | 'gemini' | 'edge' = 'auto'): Promise<Blob> => {
-    const res = await fetch(API_BASE + '/ai/speak', {
+    const base = getApiBase();
+    const url = base.startsWith('http')
+      ? new URL('ai/speak', base.endsWith('/') ? base : `${base}/`).toString()
+      : base + '/ai/speak';
+    const res = await fetch(url, {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
@@ -302,7 +319,11 @@ export const api = {
   removeDoctorPatient: (patient_id: string) => request<{ ok: boolean; patients: any[] }>('/doctor/patients/' + encodeURIComponent(patient_id), { method: 'DELETE' }),
   clearInactiveDoctorPatients: () => request<{ ok: boolean; patients: any[] }>('/doctor/patients/clear-inactive', { method: 'POST', body: '{}' }),
   downloadOriginal: async (id: string, name: string, owner?: string) => {
-    const originalUrl = API_BASE + '/documents/' + encodeURIComponent(id) + '/download' + ownerQuery(owner);
+    const base = getApiBase();
+    const docPath = 'documents/' + encodeURIComponent(id) + '/download' + ownerQuery(owner);
+    const originalUrl = base.startsWith('http')
+      ? new URL(docPath, base.endsWith('/') ? base : `${base}/`).toString()
+      : base + '/' + docPath;
     const fetchOriginal = () => fetch(originalUrl, { credentials: 'include', cache: 'no-store' });
     let response = await fetchOriginal();
     if (response.status === 401) { await request('/auth/me'); response = await fetchOriginal(); }

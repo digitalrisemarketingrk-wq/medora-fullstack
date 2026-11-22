@@ -50,9 +50,22 @@ Local data uses SQLite and private files under `backend/.data`, with demo accoun
 
 The SQL is supplied and reviewed; it has not been executed against your Supabase project because project credentials are not present.
 
-## Deploy the FastAPI backend
+## Deploy on Vercel with Services (Multi-service project)
 
-For Vercel, create a **second project** from the same repository with Root Directory `backend` and Framework Preset **FastAPI**. The package includes `main.py` and `backend/vercel.json`. Put all Supabase/Groq/Qdrant/embedding secrets only in this backend project, apply the production settings below, and use its production URL as frontend `BACKEND_URL`. Keep backend deployment protection compatible with frontend API requests; application authentication protects the records. Vercel Function payload limits apply, so use `MAX_UPLOAD_BYTES=4194304` (4 MB) for this hosting option and smaller document/audio files. The Docker option supports the full 10 MB application limit.
+The repository root includes `vercel.json` configured for Vercel Services. Both the FastAPI `backend` and Next.js `frontend` deploy together in a single Vercel project with shared routing and service bindings:
+
+- **Routing**: Public traffic to `/api/*` rewrites to the `backend` service, while all other paths `/*` route to `frontend`.
+- **Service Bindings**: The `frontend` service binds to `backend` using `BACKEND_URL`, allowing server-side functions and rewrites to call the backend internally without public round-trips.
+- **Environment**: Set backend secrets (`SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `GROQ_API_KEY`, etc.) and `ALLOWED_ORIGINS=https://your-project.vercel.app` in the project settings.
+
+```bash
+# Test multi-service locally with Vercel CLI
+vercel dev
+```
+
+## Alternative: Deploy as separate Vercel projects
+
+For separate Vercel projects, create a **backend project** with Root Directory `backend` (FastAPI preset) and a **frontend project** with Root Directory `frontend`, setting `BACKEND_URL` to the backend URL.
 
 Deploy `backend/Dockerfile` to a host that runs Docker behind HTTPS. It uses pinned Python dependencies, a non-root user, a configurable `PORT` and no request access logging. No environment files are copied into the image.
 
